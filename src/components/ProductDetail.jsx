@@ -39,7 +39,10 @@ export default function ProductDetail({ product }) {
                 className="product-page__detail-icon"
                 style={{ background: product.bgColor, color: product.color }}
             >
-              &#x2727;
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M20.1932 12.999C21.8501 15.8688 20.8669 19.5383 17.9971 21.1952C15.1273 22.8521 11.4578 21.8688 9.80094 18.999M20.1932 12.999C18.5364 10.1293 14.8669 9.14604 11.9971 10.8029C9.12734 12.4598 8.14409 16.1293 9.80094 18.999M20.1932 12.999L9.80094 18.999" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M10.0428 5.54203L15.1278 2.5374C17 1.43112 19.394 2.08763 20.4749 4.00376C21.3433 5.54315 21.1 7.4272 20 8.6822M10.0428 5.54203L4.95785 8.54667C3.08563 9.65294 2.44415 12.1031 3.52508 14.0192C4.17499 15.1713 5.29956 15.868 6.5 16M10.0428 5.54203L11.5 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
             <div className="product-page__detail-text">
               <span className="product-page__detail-label">Indications: </span>
@@ -52,7 +55,13 @@ export default function ProductDetail({ product }) {
                 className="product-page__detail-icon"
                 style={{ background: product.bgColor, color: product.color }}
             >
-              &#x2727;
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M8.01562 2.00171H15.9751" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M5.53125 11.1499C5.53125 11.1499 8.53125 10.224 11.0313 13.0015M18.5313 11.6128C18.5313 11.6128 17.9197 12.592 17.0313 13.0017" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <path d="M10.0312 18.0037L10.0399 18.0013" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M14.0312 14.0037L14.0399 14.0013" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M9.52693 2.2146V6.2572C9.52693 6.91916 9.17519 7.48994 8.59404 7.80139C5.60885 9.4012 2.80495 13.9337 5.74609 18.579C6.4044 19.7185 8.57684 21.9976 12.0001 21.9976C15.4233 21.9976 17.5957 19.7185 18.254 18.579C21.1952 13.9337 18.3913 9.4012 15.4061 7.80139C14.8249 7.48994 14.4725 6.91916 14.4725 6.2572V2.26338" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
             <div className="product-page__detail-text">
               <span className="product-page__detail-label">Active Ingredients: </span>
