@@ -7,12 +7,13 @@ export const products = [
     image: "/revitalizing-oil.png",
     color: "#915524",
     bgColor: "rgba(145, 85, 36, 0.15)",
+    bgImage: "/retinol-night-cream-bg.svg",
     description:
-      "The blend of natural oils enriched with vitamins, squalene and essential fatty acids is developed to prevent pigmentation, flaking, fine lines, acne scars, dull skin and dehydration.",
+        "The blend of natural oils enriched with vitamins, squalene and essential fatty acids is developed to prevent pigmentation, flaking, fine lines, acne scars, dull skin and dehydration.",
     indications:
-      "PIGMENTATION, FLAKING, FINE LINES, ACNE SCARS, DULL SKIN, DEHYDRATION",
+        "PIGMENTATION, FLAKING, FINE LINES, ACNE SCARS, DULL SKIN, DEHYDRATION",
     activeIngredients:
-      "Squalene, Vitamin E, Vitamin C, Essential Fatty Acids.",
+        "Squalene, Vitamin E, Vitamin C, Essential Fatty Acids.",
     actions: [
       "Effective moisturizer and revitalizer with anti-aging properties is the perfect addition to your daily skincare routine;",
       "Reduces the appearance of fine lines, soothes skin and prevents irritation;",
@@ -22,13 +23,13 @@ export const products = [
     ],
     tabs: {
       result:
-        "Visible improvement is usually observed in 3 - 4 weeks. For best results, continue using the product for several months.",
+          "Visible improvement is usually observed in 3 - 4 weeks. For best results, continue using the product for several months.",
       typesOfSkin:
-        "Suitable for all skin types, especially dry, dull, and dehydrated skin.",
+          "Suitable for all skin types, especially dry, dull, and dehydrated skin.",
       usage:
-        "Apply 3-5 drops to cleansed face and neck. Gently massage until fully absorbed. Use morning and evening.",
+          "Apply 3-5 drops to cleansed face and neck. Gently massage until fully absorbed. Use morning and evening.",
       application:
-        "Can be used alone or mixed with your favorite moisturizer. Apply before sunscreen in the morning.",
+          "Can be used alone or mixed with your favorite moisturizer. Apply before sunscreen in the morning.",
     },
   },
   {
@@ -39,12 +40,13 @@ export const products = [
     image: "/brightening-cream.png",
     color: "#E8B4B8",
     bgColor: "rgba(232, 180, 184, 0.15)",
+    bgImage: "/retinol-night-cream-bg.svg",
     description:
-      "Advanced brightening formula designed to even out skin tone, reduce dark spots, and restore natural radiance to your complexion.",
+        "Advanced brightening formula designed to even out skin tone, reduce dark spots, and restore natural radiance to your complexion.",
     indications:
-      "DARK SPOTS, UNEVEN SKIN TONE, DULLNESS, HYPERPIGMENTATION",
+        "DARK SPOTS, UNEVEN SKIN TONE, DULLNESS, HYPERPIGMENTATION",
     activeIngredients:
-      "Niacinamide, Arbutin, Vitamin C, Hyaluronic Acid.",
+        "Niacinamide, Arbutin, Vitamin C, Hyaluronic Acid.",
     actions: [
       "Targets and reduces the appearance of dark spots and hyperpigmentation;",
       "Evens out skin tone for a more uniform complexion;",
@@ -54,13 +56,13 @@ export const products = [
     ],
     tabs: {
       result:
-        "Noticeable improvement in skin brightness within 2-3 weeks of regular use.",
+          "Noticeable improvement in skin brightness within 2-3 weeks of regular use.",
       typesOfSkin:
-        "Suitable for all skin types. Ideal for those with uneven skin tone.",
+          "Suitable for all skin types. Ideal for those with uneven skin tone.",
       usage:
-        "Apply a small amount to cleansed face and neck. Use morning and evening.",
+          "Apply a small amount to cleansed face and neck. Use morning and evening.",
       application:
-        "Apply after serum and before sunscreen. Gently massage in upward circular motions.",
+          "Apply after serum and before sunscreen. Gently massage in upward circular motions.",
     },
   },
   {
@@ -71,12 +73,13 @@ export const products = [
     image: "/retinol-night-cream.png",
     color: "#6f2477",
     bgColor: "rgba(111, 36, 119, 0.15)",
+    bgImage: "/retinol-night-cream-bg.svg",
     description:
-      "A powerful night cream formulated with retinol to combat wrinkles, uneven complexion, pigmentation, dullness, and dark spots while you sleep.",
+        "A powerful night cream formulated with retinol to combat wrinkles, uneven complexion, pigmentation, dullness, and dark spots while you sleep.",
     indications:
-      "WRINKLES, UNEVEN COMPLEXION, PIGMENTATION, DULLNESS, DARK SPOTS",
+        "WRINKLES, UNEVEN COMPLEXION, PIGMENTATION, DULLNESS, DARK SPOTS",
     activeIngredients:
-      "Retinol, Ceramide NP, Ectoine, Palmitoyl Tripeptide-5, Ceramide 3.",
+        "Retinol, Ceramide NP, Ectoine, Palmitoyl Tripeptide-5, Ceramide 3.",
     actions: [
       "Accelerates cell turnover to reveal smoother, younger-looking skin;",
       "Reduces the appearance of fine lines and wrinkles;",
@@ -86,13 +89,13 @@ export const products = [
     ],
     tabs: {
       result:
-        "Visible improvement in skin texture and fine lines within 4-6 weeks of nightly use.",
+          "Visible improvement in skin texture and fine lines within 4-6 weeks of nightly use.",
       typesOfSkin:
-        "Suitable for normal to dry skin. Not recommended for sensitive skin without patch testing.",
+          "Suitable for normal to dry skin. Not recommended for sensitive skin without patch testing.",
       usage:
-        "Apply a pea-sized amount to cleansed face and neck every evening. Start with every other night.",
+          "Apply a pea-sized amount to cleansed face and neck every evening. Start with every other night.",
       application:
-        "Apply after cleansing and toning. Avoid the eye area. Always use sunscreen the following morning.",
+          "Apply after cleansing and toning. Avoid the eye area. Always use sunscreen the following morning.",
     },
   },
   {
@@ -103,12 +106,13 @@ export const products = [
     image: "/antioxidant-vitamin-c-cream.png",
     color: "#F5A623",
     bgColor: "rgba(245, 166, 35, 0.15)",
+    bgImage: "/retinol-night-cream-bg.svg",
     description:
-      "A potent antioxidant cream packed with Vitamin C to protect against free radical damage, brighten skin, and boost collagen production.",
+        "A potent antioxidant cream packed with Vitamin C to protect against free radical damage, brighten skin, and boost collagen production.",
     indications:
-      "DULLNESS, FINE LINES, UNEVEN TONE, FREE RADICAL DAMAGE, LOSS OF FIRMNESS",
+        "DULLNESS, FINE LINES, UNEVEN TONE, FREE RADICAL DAMAGE, LOSS OF FIRMNESS",
     activeIngredients:
-      "Vitamin C (Ascorbic Acid), Vitamin E, Ferulic Acid, Hyaluronic Acid.",
+        "Vitamin C (Ascorbic Acid), Vitamin E, Ferulic Acid, Hyaluronic Acid.",
     actions: [
       "Provides powerful antioxidant protection against environmental damage;",
       "Brightens and evens out skin tone;",
@@ -118,13 +122,13 @@ export const products = [
     ],
     tabs: {
       result:
-        "Noticeable brightening and improved skin texture within 2-3 weeks.",
+          "Noticeable brightening and improved skin texture within 2-3 weeks.",
       typesOfSkin:
-        "Suitable for all skin types, especially dull and aging skin.",
+          "Suitable for all skin types, especially dull and aging skin.",
       usage:
-        "Apply in the morning after cleansing. Follow with sunscreen for best results.",
+          "Apply in the morning after cleansing. Follow with sunscreen for best results.",
       application:
-        "Gently massage onto face and neck. Can be layered under makeup.",
+          "Gently massage onto face and neck. Can be layered under makeup.",
     },
   },
   {
@@ -135,12 +139,13 @@ export const products = [
     image: "/ultra-hydrating-cream.png",
     color: "#75a4d7",
     bgColor: "rgba(117, 164, 215, 0.15)",
+    bgImage: "/retinol-night-cream-bg.svg",
     description:
-      "An intensely hydrating cream enriched with natural prebiotics to restore the skin's microbiome balance and provide long-lasting moisture.",
+        "An intensely hydrating cream enriched with natural prebiotics to restore the skin's microbiome balance and provide long-lasting moisture.",
     indications:
-      "DEHYDRATION, DRY SKIN, SENSITIVITY, COMPROMISED SKIN BARRIER",
+        "DEHYDRATION, DRY SKIN, SENSITIVITY, COMPROMISED SKIN BARRIER",
     activeIngredients:
-      "Natural Prebiotics, Hyaluronic Acid, Shea Butter, Ceramides.",
+        "Natural Prebiotics, Hyaluronic Acid, Shea Butter, Ceramides.",
     actions: [
       "Restores and maintains the skin's natural microbiome balance;",
       "Provides 72-hour deep hydration;",
@@ -150,13 +155,13 @@ export const products = [
     ],
     tabs: {
       result:
-        "Immediate hydration boost with long-term improvement in skin barrier function within 2 weeks.",
+          "Immediate hydration boost with long-term improvement in skin barrier function within 2 weeks.",
       typesOfSkin:
-        "Ideal for dry, dehydrated, and sensitive skin types.",
+          "Ideal for dry, dehydrated, and sensitive skin types.",
       usage:
-        "Apply generously to face and neck morning and evening after cleansing.",
+          "Apply generously to face and neck morning and evening after cleansing.",
       application:
-        "Pat gently onto skin. Can be used as a sleeping mask for intense overnight hydration.",
+          "Pat gently onto skin. Can be used as a sleeping mask for intense overnight hydration.",
     },
   },
   {
@@ -167,12 +172,13 @@ export const products = [
     image: "/cream-for-acne-prone-skin.png",
     color: "#308e6e",
     bgColor: "rgba(48, 142, 110, 0.15)",
+    bgImage: "/retinol-night-cream-bg.svg",
     description:
-      "A specially formulated cream for acne-prone skin that helps control breakouts while maintaining skin hydration and balance.",
+        "A specially formulated cream for acne-prone skin that helps control breakouts while maintaining skin hydration and balance.",
     indications:
-      "ACNE, BREAKOUTS, EXCESS OIL, ENLARGED PORES, INFLAMMATION",
+        "ACNE, BREAKOUTS, EXCESS OIL, ENLARGED PORES, INFLAMMATION",
     activeIngredients:
-      "Salicylic Acid, Niacinamide, Zinc PCA, Tea Tree Oil.",
+        "Salicylic Acid, Niacinamide, Zinc PCA, Tea Tree Oil.",
     actions: [
       "Controls excess sebum production without over-drying;",
       "Unclogs pores and prevents future breakouts;",
@@ -182,13 +188,13 @@ export const products = [
     ],
     tabs: {
       result:
-        "Reduction in breakouts visible within 1-2 weeks. Significant improvement in 4-6 weeks.",
+          "Reduction in breakouts visible within 1-2 weeks. Significant improvement in 4-6 weeks.",
       typesOfSkin:
-        "Designed for oily and acne-prone skin. Suitable for combination skin.",
+          "Designed for oily and acne-prone skin. Suitable for combination skin.",
       usage:
-        "Apply a thin layer to affected areas after cleansing. Use morning and evening.",
+          "Apply a thin layer to affected areas after cleansing. Use morning and evening.",
       application:
-        "Apply to clean, dry skin. Avoid combining with other exfoliating products.",
+          "Apply to clean, dry skin. Avoid combining with other exfoliating products.",
     },
   },
   {
@@ -199,12 +205,13 @@ export const products = [
     image: "/anti-wrinkle-cream.png",
     color: "#a95081",
     bgColor: "rgba(169, 80, 129, 0.15)",
+    bgImage: "/retinol-night-cream-bg.svg",
     description:
-      "An advanced anti-aging cream that targets wrinkles, fine lines, and loss of elasticity to restore youthful, firm skin.",
+        "An advanced anti-aging cream that targets wrinkles, fine lines, and loss of elasticity to restore youthful, firm skin.",
     indications:
-      "WRINKLES, FINE LINES, LOSS OF ELASTICITY, SAGGING, DRYNESS",
+        "WRINKLES, FINE LINES, LOSS OF ELASTICITY, SAGGING, DRYNESS",
     activeIngredients:
-      "Retinol, Peptides, Collagen, Hyaluronic Acid, Vitamin E.",
+        "Retinol, Peptides, Collagen, Hyaluronic Acid, Vitamin E.",
     actions: [
       "Significantly reduces the depth and appearance of wrinkles;",
       "Firms and tightens sagging skin;",
@@ -214,13 +221,13 @@ export const products = [
     ],
     tabs: {
       result:
-        "Visible reduction in fine lines within 3-4 weeks. Deeper wrinkles improve with continued use.",
+          "Visible reduction in fine lines within 3-4 weeks. Deeper wrinkles improve with continued use.",
       typesOfSkin:
-        "Suitable for mature and aging skin types. All skin types over 30.",
+          "Suitable for mature and aging skin types. All skin types over 30.",
       usage:
-        "Apply morning and evening to face, neck, and decollete area.",
+          "Apply morning and evening to face, neck, and decollete area.",
       application:
-        "Use upward strokes when applying. Focus on areas with visible wrinkles.",
+          "Use upward strokes when applying. Focus on areas with visible wrinkles.",
     },
   },
   {
@@ -231,12 +238,13 @@ export const products = [
     image: "/eye-contour-repair-cream.png",
     color: "#cd747e",
     bgColor: "rgba(205, 116, 126, 0.15)",
+    bgImage: "/retinol-night-cream-bg.svg",
     description:
-      "A delicate yet effective eye cream designed to target dark circles, puffiness, fine lines, and crow's feet around the eye area.",
+        "A delicate yet effective eye cream designed to target dark circles, puffiness, fine lines, and crow's feet around the eye area.",
     indications:
-      "DARK CIRCLES, PUFFINESS, FINE LINES, CROW'S FEET, DRYNESS",
+        "DARK CIRCLES, PUFFINESS, FINE LINES, CROW'S FEET, DRYNESS",
     activeIngredients:
-      "Caffeine, Peptides, Vitamin K, Hyaluronic Acid, Cucumber Extract.",
+        "Caffeine, Peptides, Vitamin K, Hyaluronic Acid, Cucumber Extract.",
     actions: [
       "Reduces dark circles and under-eye discoloration;",
       "Minimizes puffiness and eye bags;",
@@ -246,13 +254,13 @@ export const products = [
     ],
     tabs: {
       result:
-        "Reduced puffiness within days. Dark circles and fine lines improve in 3-4 weeks.",
+          "Reduced puffiness within days. Dark circles and fine lines improve in 3-4 weeks.",
       typesOfSkin:
-        "Suitable for all skin types. Dermatologically tested for the sensitive eye area.",
+          "Suitable for all skin types. Dermatologically tested for the sensitive eye area.",
       usage:
-        "Apply a small amount around the eye area morning and evening.",
+          "Apply a small amount around the eye area morning and evening.",
       application:
-        "Use ring finger to gently tap product around the orbital bone. Do not pull or rub.",
+          "Use ring finger to gently tap product around the orbital bone. Do not pull or rub.",
     },
   },
   {
@@ -263,12 +271,13 @@ export const products = [
     image: null,
     color: "#6B8E6B",
     bgColor: "rgba(107, 142, 107, 0.15)",
+    bgImage: "/retinol-night-cream-bg.svg",
     description:
-      "A powerful hair treatment that stimulates hair growth, strengthens follicles, and promotes thicker, healthier hair.",
+        "A powerful hair treatment that stimulates hair growth, strengthens follicles, and promotes thicker, healthier hair.",
     indications:
-      "HAIR LOSS, THINNING HAIR, WEAK FOLLICLES, SLOW GROWTH, BREAKAGE",
+        "HAIR LOSS, THINNING HAIR, WEAK FOLLICLES, SLOW GROWTH, BREAKAGE",
     activeIngredients:
-      "Biotin, Caffeine, Saw Palmetto, Keratin, Panthenol.",
+        "Biotin, Caffeine, Saw Palmetto, Keratin, Panthenol.",
     actions: [
       "Stimulates dormant hair follicles to promote new growth;",
       "Strengthens existing hair from root to tip;",
@@ -278,13 +287,13 @@ export const products = [
     ],
     tabs: {
       result:
-        "New hair growth typically visible within 8-12 weeks of consistent use.",
+          "New hair growth typically visible within 8-12 weeks of consistent use.",
       typesOfSkin:
-        "Suitable for all hair types. Safe for color-treated hair.",
+          "Suitable for all hair types. Safe for color-treated hair.",
       usage:
-        "Apply directly to scalp, focusing on thinning areas. Use daily for best results.",
+          "Apply directly to scalp, focusing on thinning areas. Use daily for best results.",
       application:
-        "Massage into scalp for 2-3 minutes to improve absorption. Do not rinse for at least 4 hours.",
+          "Massage into scalp for 2-3 minutes to improve absorption. Do not rinse for at least 4 hours.",
     },
   },
 ];
