@@ -84,86 +84,92 @@ export default function ProductSlider({ onSelectCenter, activeIndex, setActiveIn
   }
 
   return (
-    <div className="menu-slider">
-      <div className="menu-slider__track" ref={trackRef}>
-        {products.map((product, index) => {
-          const pos = getPosition(index);
-          const absPos = Math.abs(pos);
+      <div className="menu-slider">
+        <div className="menu-slider__track" ref={trackRef}>
+          {products.map((product, index) => {
+            const pos = getPosition(index);
+            const absPos = Math.abs(pos);
 
-          if (absPos > 2) return null;
+            if (absPos > 2) return null;
 
-          const translateX = pos * 340;
-          const scale = pos === 0 ? 1 : 0.7;
-          const zIndex = 10 - absPos;
-          const opacity = pos === 0 ? 1 : absPos === 1 ? 0.7 : 0.3;
-          const rotateY = pos * -15;
+            const translateX = pos * 340;
+            const scale = pos === 0 ? 1 : 0.7;
+            const zIndex = 10 - absPos;
+            const opacity = pos === 0 ? 1 : absPos === 1 ? 0.7 : 0.3;
+            const rotateY = pos * -15;
 
-          return (
-            <div
-              key={product.id}
-              className="menu-slider__item"
-              style={{
-                transform: `translateX(${translateX}px) scale(${scale}) rotateY(${rotateY}deg)`,
-                zIndex,
-                opacity,
-              }}
-              onClick={() => handleItemClick(index)}
-            >
-              <div className="menu-slider__card" style={{ width: 380, height: 420 }}>
+            return (
                 <div
-                  className="menu-slider__card-bg"
-                  style={{ background: product.color }}
-                />
-                <div className="menu-slider__card-images">
-                  {product.image ? (
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="menu-slider__card-img menu-slider__card-img--center"
-                      style={{ width: 200, height: 300, objectFit: "contain" }}
-                    />
-                  ) : (
-                    <div
-                      className="menu-slider__card-img menu-slider__card-img--center"
+                    key={product.id}
+                    className="menu-slider__item"
+                    style={{
+                      transform: `translateX(${translateX}px) scale(${scale}) rotateY(${rotateY}deg)`,
+                      zIndex,
+                      opacity,
+                    }}
+                    onClick={() => handleItemClick(index)}
+                >
+                  <div
+                      className="menu-slider__card"
                       style={{
-                        width: 140,
-                        height: 280,
-                        background: `linear-gradient(135deg, ${product.color}40, ${product.color}90)`,
-                        borderRadius: 8,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        padding: 10,
-                        color: "white",
-                        textAlign: "center",
-                        fontSize: 11,
-                        fontWeight: 600,
+                        width: 380,
+                        height: 420,
+                        ...(product.bgImage && {
+                          background: `url(${product.bgImage}) no-repeat`,
+                          backgroundSize: "100% 100%",
+                        }),
                       }}
-                    >
-                      {product.name}
+                  >
+                    <div className="menu-slider__card-images">
+                      {product.image ? (
+                          <img
+                              src={product.image}
+                              alt={product.name}
+                              className="menu-slider__card-img menu-slider__card-img--center"
+                              style={{ width: 200, height: 300, objectFit: "contain" }}
+                          />
+                      ) : (
+                          <div
+                              className="menu-slider__card-img menu-slider__card-img--center"
+                              style={{
+                                width: 140,
+                                height: 280,
+                                background: `linear-gradient(135deg, ${product.color}40, ${product.color}90)`,
+                                borderRadius: 8,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                padding: 10,
+                                color: "white",
+                                textAlign: "center",
+                                fontSize: 11,
+                                fontWeight: 600,
+                              }}
+                          >
+                            {product.name}
+                          </div>
+                      )}
                     </div>
-                  )}
+                    <div className="menu-slider__card-info">
+                      <div className="menu-slider__card-name">{product.name}</div>
+                      <div className="menu-slider__card-subtitle">{product.subtitle}</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="menu-slider__card-info">
-                  <div className="menu-slider__card-name">{product.name}</div>
-                  <div className="menu-slider__card-subtitle">{product.subtitle}</div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
 
-      <div className="menu-slider__dot" />
-      <div className="menu-slider__curve">
-        <svg viewBox="0 0 1000 60" fill="none">
-          <path
-            d="M0 30 Q250 60 500 30 Q750 0 1000 30"
-            stroke="#e0e0e0"
-            strokeWidth="1"
-          />
-        </svg>
+        <div className="menu-slider__dot" />
+        <div className="menu-slider__curve">
+          <svg viewBox="0 0 1000 60" fill="none">
+            <path
+                d="M0 30 Q250 60 500 30 Q750 0 1000 30"
+                stroke="#e0e0e0"
+                strokeWidth="1"
+            />
+          </svg>
+        </div>
       </div>
-    </div>
   );
 }
