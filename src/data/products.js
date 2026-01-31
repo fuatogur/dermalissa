@@ -7,7 +7,7 @@ export const products = [
     image: "/revitalizing-oil.png",
     color: "#915524",
     bgColor: "rgba(145, 85, 36, 0.15)",
-    bgImage: "/retinol-night-cream-bg.svg",
+    bgImage: "/revitalizing-oil-bg.svg",
     description:
         "The blend of natural oils enriched with vitamins, squalene and essential fatty acids is developed to prevent pigmentation, flaking, fine lines, acne scars, dull skin and dehydration.",
     indications:
@@ -40,7 +40,7 @@ export const products = [
     image: "/brightening-cream.png",
     color: "#E8B4B8",
     bgColor: "rgba(232, 180, 184, 0.15)",
-    bgImage: "/retinol-night-cream-bg.svg",
+    bgImage: "/brightening-cream-bg.svg",
     description:
         "Advanced brightening formula designed to even out skin tone, reduce dark spots, and restore natural radiance to your complexion.",
     indications:
@@ -106,7 +106,7 @@ export const products = [
     image: "/antioxidant-vitamin-c-cream.png",
     color: "#F5A623",
     bgColor: "rgba(245, 166, 35, 0.15)",
-    bgImage: "/retinol-night-cream-bg.svg",
+    bgImage: "/antioxidant-vitamin-c-cream-bg.svg",
     description:
         "A potent antioxidant cream packed with Vitamin C to protect against free radical damage, brighten skin, and boost collagen production.",
     indications:
@@ -139,7 +139,7 @@ export const products = [
     image: "/ultra-hydrating-cream.png",
     color: "#75a4d7",
     bgColor: "rgba(117, 164, 215, 0.15)",
-    bgImage: "/retinol-night-cream-bg.svg",
+    bgImage: "/ultra-hydrating-cream-bg.svg",
     description:
         "An intensely hydrating cream enriched with natural prebiotics to restore the skin's microbiome balance and provide long-lasting moisture.",
     indications:
@@ -172,7 +172,7 @@ export const products = [
     image: "/cream-for-acne-prone-skin.png",
     color: "#308e6e",
     bgColor: "rgba(48, 142, 110, 0.15)",
-    bgImage: "/retinol-night-cream-bg.svg",
+    bgImage: "/cream-for-acne-prone-skin-bg.svg",
     description:
         "A specially formulated cream for acne-prone skin that helps control breakouts while maintaining skin hydration and balance.",
     indications:
@@ -205,7 +205,7 @@ export const products = [
     image: "/anti-wrinkle-cream.png",
     color: "#a95081",
     bgColor: "rgba(169, 80, 129, 0.15)",
-    bgImage: "/retinol-night-cream-bg.svg",
+    bgImage: "/anti-wrinkle-cream-bg.svg",
     description:
         "An advanced anti-aging cream that targets wrinkles, fine lines, and loss of elasticity to restore youthful, firm skin.",
     indications:
@@ -238,7 +238,7 @@ export const products = [
     image: "/eye-contour-repair-cream.png",
     color: "#cd747e",
     bgColor: "rgba(205, 116, 126, 0.15)",
-    bgImage: "/retinol-night-cream-bg.svg",
+    bgImage: "/eye-contour-repair-cream-bg.svg",
     description:
         "A delicate yet effective eye cream designed to target dark circles, puffiness, fine lines, and crow's feet around the eye area.",
     indications:
