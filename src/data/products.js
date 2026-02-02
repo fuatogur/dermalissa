@@ -31,6 +31,12 @@ export const products = [
       application:
           "Can be used alone or mixed with your favorite moisturizer. Apply before sunscreen in the morning.",
     },
+    b2b: {
+      volume: "200 ml",
+      quantityInBox: "24 pcs",
+      boxGrossWeight: "5,5 kg",
+      boxVolume: "0,013 m³",
+    },
   },
   {
     id: 2,
@@ -63,6 +69,12 @@ export const products = [
           "Apply a small amount to cleansed face and neck. Use morning and evening.",
       application:
           "Apply after serum and before sunscreen. Gently massage in upward circular motions.",
+    },
+    b2b: {
+      volume: "50 ml",
+      quantityInBox: "24 pcs",
+      boxGrossWeight: "4,2 kg",
+      boxVolume: "0,011 m³",
     },
   },
   {
@@ -97,6 +109,12 @@ export const products = [
       application:
           "Apply after cleansing and toning. Avoid the eye area. Always use sunscreen the following morning.",
     },
+    b2b: {
+      volume: "50 ml",
+      quantityInBox: "24 pcs",
+      boxGrossWeight: "4,5 kg",
+      boxVolume: "0,012 m³",
+    },
   },
   {
     id: 4,
@@ -129,6 +147,12 @@ export const products = [
           "Apply in the morning after cleansing. Follow with sunscreen for best results.",
       application:
           "Gently massage onto face and neck. Can be layered under makeup.",
+    },
+    b2b: {
+      volume: "50 ml",
+      quantityInBox: "24 pcs",
+      boxGrossWeight: "4,3 kg",
+      boxVolume: "0,011 m³",
     },
   },
   {
@@ -163,6 +187,12 @@ export const products = [
       application:
           "Pat gently onto skin. Can be used as a sleeping mask for intense overnight hydration.",
     },
+    b2b: {
+      volume: "50 ml",
+      quantityInBox: "24 pcs",
+      boxGrossWeight: "4,4 kg",
+      boxVolume: "0,012 m³",
+    },
   },
   {
     id: 6,
@@ -195,6 +225,12 @@ export const products = [
           "Apply a thin layer to affected areas after cleansing. Use morning and evening.",
       application:
           "Apply to clean, dry skin. Avoid combining with other exfoliating products.",
+    },
+    b2b: {
+      volume: "50 ml",
+      quantityInBox: "24 pcs",
+      boxGrossWeight: "4,2 kg",
+      boxVolume: "0,011 m³",
     },
   },
   {
@@ -229,6 +265,12 @@ export const products = [
       application:
           "Use upward strokes when applying. Focus on areas with visible wrinkles.",
     },
+    b2b: {
+      volume: "50 ml",
+      quantityInBox: "24 pcs",
+      boxGrossWeight: "4,5 kg",
+      boxVolume: "0,012 m³",
+    },
   },
   {
     id: 8,
@@ -262,6 +304,12 @@ export const products = [
       application:
           "Use ring finger to gently tap product around the orbital bone. Do not pull or rub.",
     },
+    b2b: {
+      volume: "15 ml",
+      quantityInBox: "24 pcs",
+      boxGrossWeight: "3,2 kg",
+      boxVolume: "0,009 m³",
+    },
   },
   {
     id: 9,
@@ -294,6 +342,12 @@ export const products = [
           "Apply directly to scalp, focusing on thinning areas. Use daily for best results.",
       application:
           "Massage into scalp for 2-3 minutes to improve absorption. Do not rinse for at least 4 hours.",
+    },
+    b2b: {
+      volume: "100 ml",
+      quantityInBox: "24 pcs",
+      boxGrossWeight: "4,0 kg",
+      boxVolume: "0,010 m³",
     },
   },
 ];

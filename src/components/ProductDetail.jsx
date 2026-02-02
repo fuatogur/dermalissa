@@ -5,6 +5,7 @@ const tabKeys = [
   { key: "typesOfSkin", label: "Types of Skin" },
   { key: "usage", label: "Usage" },
   { key: "application", label: "Application" },
+  { key: "b2b", label: "B2B" },
 ];
 
 export default function ProductDetail({ product }) {
@@ -89,7 +90,63 @@ export default function ProductDetail({ product }) {
           </div>
 
           <div className="product-page__tab-content">
-            {product.tabs[activeTab]}
+            {activeTab === "b2b" ? (
+              <div className="b2b-grid">
+                <div className="b2b-card">
+                  <div className="b2b-card__icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M8 2v4M16 2v4" />
+                      <rect x="3" y="6" width="18" height="15" rx="2" />
+                      <path d="M12 6v15M8 11h8M8 15h4" />
+                    </svg>
+                  </div>
+                  <div className="b2b-card__text">
+                    <span className="b2b-card__label">Product Volume</span>
+                    <span className="b2b-card__value">{product.b2b.volume}</span>
+                  </div>
+                </div>
+                <div className="b2b-card">
+                  <div className="b2b-card__icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 10V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h6" />
+                      <path d="M12 2l4 4-4 4" />
+                      <rect x="15" y="14" width="7" height="7" rx="1" />
+                    </svg>
+                  </div>
+                  <div className="b2b-card__text">
+                    <span className="b2b-card__label">Quantity in Box</span>
+                    <span className="b2b-card__value">{product.b2b.quantityInBox}</span>
+                  </div>
+                </div>
+                <div className="b2b-card">
+                  <div className="b2b-card__icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 3v17M8 7l4-4 4 4" />
+                      <circle cx="12" cy="20" r="1" />
+                      <path d="M17 13h3M4 13h3" />
+                    </svg>
+                  </div>
+                  <div className="b2b-card__text">
+                    <span className="b2b-card__label">Box Gross Weight</span>
+                    <span className="b2b-card__value">{product.b2b.boxGrossWeight}</span>
+                  </div>
+                </div>
+                <div className="b2b-card">
+                  <div className="b2b-card__icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z" />
+                      <path d="M14 14h7v7h-7z" strokeDasharray="3 2" />
+                    </svg>
+                  </div>
+                  <div className="b2b-card__text">
+                    <span className="b2b-card__label">Box Volume</span>
+                    <span className="b2b-card__value">{product.b2b.boxVolume}</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              product.tabs[activeTab]
+            )}
           </div>
         </div>
       </div>

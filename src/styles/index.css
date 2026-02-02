@@ -664,12 +664,62 @@ img {
 
 .product-page__tab-content {
     margin-top: 20px;
-    padding: 24px;
+    padding: 12px;
     background: #f8f8f8;
     border-radius: 12px;
     font-size: 14px;
     line-height: 1.7;
     color: #555;
+}
+
+/* ============ B2B GRID ============ */
+.b2b-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.b2b-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 8px;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+}
+
+.b2b-card__icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-dark);
+    color: white;
+    border-radius: 8px;
+}
+
+.b2b-card__text {
+    display: flex;
+    flex-direction: column;
+}
+
+.b2b-card__label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--color-gray);
+    line-height: 1.3;
+}
+
+.b2b-card__value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-top: 2px;
 }
 
 /* ============ ENTER BUTTON (Homepage) ============ */
@@ -1001,5 +1051,9 @@ img {
 
     .buy-modal__link-logo {
         height: 22px;
+    }
+
+    .b2b-grid {
+        grid-template-columns: 1fr;
     }
 }
