@@ -9,9 +9,9 @@ export default function Footer({ onProductsClick }) {
         &copy; 2026 Dermalissa. Tum haklari saklidir.
       </div>
 
-      <div className="footer__center">
+      <a href="https://seskimya.com" target="_blank" rel="noopener noreferrer" className="footer__center">
         <img src="/ses-kimya.svg" alt="SES Kimya A.S." className="footer__partner-logo" />
-      </div>
+      </a>
 
       <nav className="footer__nav">
         <span className="footer__nav-link" onClick={onProductsClick}>
