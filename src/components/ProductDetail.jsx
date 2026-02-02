@@ -17,9 +17,9 @@ export default function ProductDetail({ product }) {
       <div className="product-page">
         <div className="product-page__image">
           <div className="product-page__image-box">
-            {product.image ? (
+            {(product.detailImage || product.image) ? (
                 <img
-                    src={product.image}
+                    src={product.detailImage || product.image}
                     alt={product.name}
                     className="product-page__img"
                 />
