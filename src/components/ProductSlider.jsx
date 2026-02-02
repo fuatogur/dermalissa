@@ -93,7 +93,7 @@ export default function ProductSlider({ onSelectCenter, activeIndex, setActiveIn
             if (absPos > 2) return null;
 
             const translateX = pos * 340;
-            const scale = pos === 0 ? 1 : 0.7;
+            const scale = pos === 0 ? 1.15 : 0.65;
             const zIndex = 10 - absPos;
             const opacity = pos === 0 ? 1 : absPos === 1 ? 0.7 : 0.3;
             const rotateY = pos * -15;
@@ -161,15 +161,6 @@ export default function ProductSlider({ onSelectCenter, activeIndex, setActiveIn
         </div>
 
         <div className="menu-slider__dot" />
-        <div className="menu-slider__curve">
-          <svg viewBox="0 0 1000 60" fill="none">
-            <path
-                d="M0 30 Q250 60 500 30 Q750 0 1000 30"
-                stroke="#e0e0e0"
-                strokeWidth="1"
-            />
-          </svg>
-        </div>
       </div>
   );
 }

@@ -101,7 +101,7 @@ export default function HomeSlider() {
           if (absPos > 2) return null;
 
           const translateX = pos * 320;
-          const scale = pos === 0 ? 1 : 0.65;
+          const scale = pos === 0 ? 1.15 : 0.6;
           const zIndex = 10 - absPos;
           const opacity = pos === 0 ? 1 : absPos === 1 ? 0.6 : 0.2;
 
@@ -171,15 +171,6 @@ export default function HomeSlider() {
       </div>
 
       <div className="home__slider-dot" />
-      <div className="home__curve">
-        <svg viewBox="0 0 1000 60" fill="none">
-          <path
-            d="M0 30 Q250 60 500 30 Q750 0 1000 30"
-            stroke="#e0e0e0"
-            strokeWidth="1"
-          />
-        </svg>
-      </div>
     </div>
   );
 }
