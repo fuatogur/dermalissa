@@ -2,15 +2,15 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const languages = [
-  { code: "tr", label: "Turkce", flag: "\ud83c\uddf9\ud83c\uddf7" },
-  { code: "en", label: "English", flag: "\ud83c\uddec\ud83c\udde7" },
-  { code: "de", label: "Deutsch", flag: "\ud83c\udde9\ud83c\uddea" },
-  { code: "fr", label: "Francais", flag: "\ud83c\uddeb\ud83c\uddf7" },
-  { code: "es", label: "Espanol", flag: "\ud83c\uddea\ud83c\uddf8" },
-  { code: "it", label: "Italiano", flag: "\ud83c\uddee\ud83c\uddf9" },
-  { code: "pt", label: "Portugues", flag: "\ud83c\uddf5\ud83c\uddf9" },
-  { code: "ru", label: "Russkiy", flag: "\ud83c\uddf7\ud83c\uddfa" },
-  { code: "ar", label: "Al-Arabiyyah", flag: "\ud83c\uddf8\ud83c\udde6" },
+  { code: "tr", label: "Türkçe", flag: "/tr.svg" },
+  { code: "en", label: "English", flag: "/sh.svg" },
+  { code: "de", label: "Deutsch", flag: "/de.svg" },
+  { code: "fr", label: "Français", flag: "/fr.svg" },
+  { code: "es", label: "Español", flag: "/es.svg" },
+  { code: "it", label: "Italiano", flag: "/it.svg" },
+  { code: "pt", label: "Português", flag: "/pt.svg" },
+  { code: "ru", label: "Русский", flag: "/ru.svg" },
+  { code: "ar", label: "العربية", flag: "/sa.svg" },
 ];
 
 export default function Header({ menuOpen, onToggleMenu, currentLang }) {
@@ -55,7 +55,7 @@ export default function Header({ menuOpen, onToggleMenu, currentLang }) {
 
       <div className="header__right" ref={langRef}>
         <div className="header__lang" onClick={() => setLangOpen(!langOpen)}>
-          <span style={{ fontSize: 20 }}>{currentLanguage.flag}</span>
+          <img src={currentLanguage.flag} alt={currentLanguage.label} style={{ width: "auto", height: 20 }} />
           <span>{currentLang.toUpperCase()}</span>
         </div>
         <div className={`header__lang-dropdown ${langOpen ? "open" : ""}`}>
@@ -68,7 +68,7 @@ export default function Header({ menuOpen, onToggleMenu, currentLang }) {
                 cursor: "pointer",
               }}
             >
-              {lang.flag} {lang.label}
+              <img src={lang.flag} alt={lang.label} style={{ width: "auto", height: 18 }} /> {lang.label}
             </a>
           ))}
         </div>
