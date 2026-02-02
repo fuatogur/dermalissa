@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700');
 
 * {
     margin: 0;
@@ -9,7 +9,6 @@
 :root {
     --header-height: 80px;
     --font-primary: 'Montserrat', sans-serif;
-    --font-display: 'Playfair Display', serif;
     --color-dark: #1a1a1a;
     --color-light: #ffffff;
     --color-gray: #888;
