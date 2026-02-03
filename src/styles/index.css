@@ -839,13 +839,13 @@ img {
 .footer__nav-link {
     font-size: 14px;
     font-weight: 500;
-    color: var(--color-dark);
+    color: var(--color-gray);
     cursor: pointer;
     transition: color 0.3s;
 }
 
 .footer__nav-link:hover {
-    color: var(--color-gray);
+    color: var(--color-dark);
 }
 
 .footer__buy-btn {
