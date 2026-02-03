@@ -1,0 +1,109 @@
+import { useEffect, useMemo } from "react";
+
+const SUPPORTED_LANGS = ["tr", "en", "de", "fr", "es", "it", "pt", "ru", "ar"];
+
+const SITE_NAME = "Dermalissa";
+const BASE_URL = "https://dermalissa.com";
+
+const FALLBACK = {
+  home: {
+    tr: { title: "Dermalissa - Aktif Kozmetik", description: "Dermalissa Active Cosmetics - Premium cilt bakım ürünleri" },
+    en: { title: "Dermalissa - Active Cosmetics", description: "Dermalissa Active Cosmetics - Premium skincare products" },
+    de: { title: "Dermalissa - Aktive Kosmetik", description: "Dermalissa Active Cosmetics - Premium Hautpflegeprodukte" },
+    fr: { title: "Dermalissa - Cosmétiques Actifs", description: "Dermalissa Active Cosmetics - Produits de soins premium" },
+    es: { title: "Dermalissa - Cosméticos Activos", description: "Dermalissa Active Cosmetics - Productos premium para el cuidado de la piel" },
+    it: { title: "Dermalissa - Cosmetici Attivi", description: "Dermalissa Active Cosmetics - Prodotti premium per la cura della pelle" },
+    pt: { title: "Dermalissa - Cosméticos Ativos", description: "Dermalissa Active Cosmetics - Produtos premium para cuidados com a pele" },
+    ru: { title: "Dermalissa - Активная Косметика", description: "Dermalissa Active Cosmetics - Премиальные средства по уходу за кожей" },
+    ar: { title: "Dermalissa - مستحضرات التجميل الفعالة", description: "Dermalissa Active Cosmetics - منتجات العناية بالبشرة المتميزة" },
+  },
+};
+
+const LOCALE_MAP = {
+  tr: "tr_TR", en: "en_US", de: "de_DE", fr: "fr_FR",
+  es: "es_ES", it: "it_IT", pt: "pt_PT", ru: "ru_RU", ar: "ar_SA",
+};
+
+function setMeta(name, content, attr = "name") {
+  let el = document.querySelector(`meta[${attr}="${name}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+function setLink(rel, key, value, extra = {}) {
+  const selector = Object.entries(extra)
+    .map(([k, v]) => `[${k}="${v}"]`)
+    .join("");
+  let el = document.querySelector(`link[rel="${rel}"]${selector}`);
+  if (!el) {
+    el = document.createElement("link");
+    el.setAttribute("rel", rel);
+    Object.entries(extra).forEach(([k, v]) => el.setAttribute(k, v));
+    document.head.appendChild(el);
+  }
+  el.setAttribute(key, value);
+}
+
+export default function useSeo({ lang = "tr", page = "home", slug = null, product = null }) {
+  const safeLang = SUPPORTED_LANGS.includes(lang) ? lang : "tr";
+
+  const seo = useMemo(() => {
+    if (page === "product" && product) {
+      const productTitle = product.name
+        ? `${product.name} - ${SITE_NAME}`
+        : SITE_NAME;
+      return {
+        title: productTitle,
+        description: product.description || FALLBACK.home[safeLang]?.description || "",
+        ogImage: product.image ? `${BASE_URL}${product.image}` : `${BASE_URL}/og-image.jpg`,
+        canonical: `${BASE_URL}/${safeLang}/${slug}`,
+        locale: LOCALE_MAP[safeLang] || "tr_TR",
+      };
+    }
+
+    const fb = FALLBACK.home[safeLang] || FALLBACK.home.tr;
+    return {
+      title: fb.title,
+      description: fb.description,
+      ogImage: `${BASE_URL}/og-image.jpg`,
+      canonical: `${BASE_URL}/${safeLang}`,
+      locale: LOCALE_MAP[safeLang] || "tr_TR",
+    };
+  }, [safeLang, page, slug, product]);
+
+  useEffect(() => {
+    document.documentElement.lang = safeLang;
+    document.title = seo.title;
+
+    setMeta("description", seo.description);
+
+    // Open Graph
+    setMeta("og:type", "website", "property");
+    setMeta("og:site_name", SITE_NAME, "property");
+    setMeta("og:title", seo.title, "property");
+    setMeta("og:description", seo.description, "property");
+    setMeta("og:image", seo.ogImage, "property");
+    setMeta("og:url", seo.canonical, "property");
+    setMeta("og:locale", seo.locale, "property");
+
+    // Twitter
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", seo.title);
+    setMeta("twitter:description", seo.description);
+    setMeta("twitter:image", seo.ogImage);
+
+    // Canonical
+    setLink("canonical", "href", seo.canonical);
+
+    // Hreflang
+    SUPPORTED_LANGS.forEach((l) => {
+      const href = slug ? `${BASE_URL}/${l}/${slug}` : `${BASE_URL}/${l}`;
+      setLink("alternate", "href", href, { hreflang: l });
+    });
+    setLink("alternate", "href", slug ? `${BASE_URL}/tr/${slug}` : `${BASE_URL}/tr`, { hreflang: "x-default" });
+  }, [seo, safeLang, slug]);
+}

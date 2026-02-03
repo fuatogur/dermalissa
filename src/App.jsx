@@ -13,6 +13,7 @@ import ProductSlider from "./components/ProductSlider";
 import ProductDetail from "./components/ProductDetail";
 import EnterButton from "./components/EnterButton";
 import HomeSlider from "./components/HomeSlider";
+import Seo from "./components/Seo";
 import { products } from "./data/products";
 
 function AppContent() {
@@ -73,8 +74,16 @@ function AppContent() {
     setSliderIndex(index);
   }, []);
 
+  const pageType = currentProduct ? "product" : "home";
+
   return (
     <div className="app">
+      <Seo
+        lang={currentLang}
+        page={pageType}
+        slug={currentProduct?.slug}
+        product={currentProduct}
+      />
       <Header
         menuOpen={menuOpen}
         onToggleMenu={toggleMenu}
