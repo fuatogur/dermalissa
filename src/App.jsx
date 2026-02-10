@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   useNavigate,
   useLocation,
@@ -83,8 +83,49 @@ function AppContent() {
     [navigate, currentLang]
   );
 
-  const handleNavSelect = useCallback((index) => {
-    setSliderIndex(index);
+  const navAnimRef = useRef(null);
+  const overlayRef = useRef(null);
+  const sliderIndexRef = useRef(sliderIndex);
+  useEffect(() => { sliderIndexRef.current = sliderIndex; }, [sliderIndex]);
+  useEffect(() => { return () => clearTimeout(navAnimRef.current); }, []);
+
+  const handleNavSelect = useCallback((targetIndex) => {
+    clearTimeout(navAnimRef.current);
+
+    const currentIndex = sliderIndexRef.current;
+    if (targetIndex === currentIndex) return;
+
+    const total = products.length;
+    const fwd = (targetIndex - currentIndex + total) % total;
+    const bwd = (currentIndex - targetIndex + total) % total;
+    const dir = fwd <= bwd ? 1 : -1;
+    const steps = Math.min(fwd, bwd);
+
+    if (steps <= 1) {
+      overlayRef.current?.classList.remove("menu-overlay--stepping");
+      setSliderIndex(targetIndex);
+      return;
+    }
+
+    overlayRef.current?.classList.add("menu-overlay--stepping");
+
+    const delay = Math.max(150, Math.min(280, 560 / steps));
+    let done = 0;
+
+    const tick = () => {
+      done++;
+      if (done >= steps) {
+        setSliderIndex(targetIndex);
+        navAnimRef.current = setTimeout(() => {
+          overlayRef.current?.classList.remove("menu-overlay--stepping");
+        }, 350);
+      } else {
+        setSliderIndex((prev) => (prev + dir + total) % total);
+        navAnimRef.current = setTimeout(tick, delay);
+      }
+    };
+
+    tick();
   }, []);
 
   const pageType = isBlogDetail
@@ -116,7 +157,7 @@ function AppContent() {
         onSelect={handleNavSelect}
       />
 
-      <div className={`menu-overlay ${menuOpen ? "open" : ""}`}>
+      <div ref={overlayRef} className={`menu-overlay ${menuOpen ? "open" : ""}`}>
         <ProductSlider
           onSelectCenter={handleSelectCenter}
           activeIndex={sliderIndex}

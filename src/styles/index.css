@@ -441,6 +441,10 @@ img {
     cursor: pointer;
 }
 
+.menu-overlay--stepping .menu-slider__item {
+    transition: all 280ms linear;
+}
+
 .menu-slider__card {
     padding: 40px;
     display: flex;

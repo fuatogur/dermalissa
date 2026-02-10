@@ -90,7 +90,7 @@ export default function ProductSlider({ onSelectCenter, activeIndex, setActiveIn
             const pos = getPosition(index);
             const absPos = Math.abs(pos);
 
-            if (absPos > 2) return null;
+            if (absPos > 4) return null;
 
             const translateX = pos * 420;
             const scale = pos === 0 ? 1.3 : 0.59;
