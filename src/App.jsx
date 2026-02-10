@@ -13,8 +13,11 @@ import ProductSlider from "./components/ProductSlider";
 import ProductDetail from "./components/ProductDetail";
 import EnterButton from "./components/EnterButton";
 import HomeSlider from "./components/HomeSlider";
+import Blog from "./components/Blog";
+import BlogDetail from "./components/BlogDetail";
 import Seo from "./components/Seo";
 import { products } from "./data/products";
+import { blogPosts } from "./data/blogPosts";
 
 function AppContent() {
   const navigate = useNavigate();
@@ -26,7 +29,13 @@ function AppContent() {
   const pathParts = location.pathname.split("/").filter(Boolean);
   const currentLang = pathParts[0] || "tr";
 
+  const isBlogList = pathParts.length >= 2 && pathParts[1] === "blog" && !pathParts[2];
+  const isBlogDetail = pathParts.length >= 3 && pathParts[1] === "blog" && pathParts[2];
+  const blogSlug = isBlogDetail ? pathParts[2] : null;
+  const currentBlogPost = isBlogDetail ? blogPosts.find((p) => p.slug === blogSlug) || null : null;
+
   const currentProduct = (() => {
+    if (isBlogList || isBlogDetail) return null;
     if (pathParts.length >= 2) {
       const slug = pathParts[pathParts.length - 1];
       return products.find((p) => p.slug === slug) || null;
@@ -35,8 +44,12 @@ function AppContent() {
   })();
 
   useEffect(() => {
-    if (pathParts.length <= 1) {
+    if (pathParts.length <= 1 && !isBlogList && !isBlogDetail) {
       setShowEnter(true);
+      setMenuOpen(false);
+    }
+    if (isBlogList || isBlogDetail) {
+      setShowEnter(false);
       setMenuOpen(false);
     }
   }, [location.pathname]);
@@ -74,15 +87,22 @@ function AppContent() {
     setSliderIndex(index);
   }, []);
 
-  const pageType = currentProduct ? "product" : "home";
+  const pageType = isBlogDetail
+    ? "blogDetail"
+    : isBlogList
+      ? "blog"
+      : currentProduct
+        ? "product"
+        : "home";
 
   return (
     <div className="app">
       <Seo
         lang={currentLang}
         page={pageType}
-        slug={currentProduct?.slug}
+        slug={currentProduct?.slug || blogSlug}
         product={currentProduct}
+        blogPost={currentBlogPost}
       />
       <Header
         menuOpen={menuOpen}
@@ -105,13 +125,13 @@ function AppContent() {
       </div>
 
       <main className="main">
-        {!menuOpen && !currentProduct && showEnter && (
+        {!menuOpen && !currentProduct && !isBlogList && !isBlogDetail && showEnter && (
           <div className="home">
             <EnterButton onClick={handleEnterClick} />
           </div>
         )}
 
-        {!menuOpen && !currentProduct && !showEnter && (
+        {!menuOpen && !currentProduct && !isBlogList && !isBlogDetail && !showEnter && (
           <div className="home">
             <HomeSlider />
           </div>
@@ -126,9 +146,29 @@ function AppContent() {
             <ProductDetail product={currentProduct} />
           </div>
         )}
+
+        {!menuOpen && isBlogList && (
+          <div
+            style={{
+              animation: "fadeSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+          >
+            <Blog />
+          </div>
+        )}
+
+        {!menuOpen && isBlogDetail && (
+          <div
+            style={{
+              animation: "fadeSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+          >
+            <BlogDetail />
+          </div>
+        )}
       </main>
 
-      {!menuOpen && <Footer onProductsClick={handleProductsClick} />}
+      {!menuOpen && <Footer onProductsClick={handleProductsClick} currentLang={currentLang} />}
 
       <style>{`
         @keyframes fadeSlideIn {
@@ -151,6 +191,8 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Navigate to="/tr" replace />} />
       <Route path="/:lang" element={<AppContent />} />
+      <Route path="/:lang/blog" element={<AppContent />} />
+      <Route path="/:lang/blog/:slug" element={<AppContent />} />
       <Route path="/:lang/:slug" element={<AppContent />} />
       <Route path="*" element={<Navigate to="/tr" replace />} />
     </Routes>

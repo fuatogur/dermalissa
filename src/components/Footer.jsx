@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function Footer({ onProductsClick }) {
+export default function Footer({ onProductsClick, currentLang }) {
   const [buyOpen, setBuyOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <footer className="footer">
@@ -17,7 +19,7 @@ export default function Footer({ onProductsClick }) {
         <span className="footer__nav-link" onClick={onProductsClick}>
           Urunler
         </span>
-        <span className="footer__nav-link">Blog</span>
+        <span className="footer__nav-link" onClick={() => navigate(`/${currentLang || 'tr'}/blog`)}>Blog</span>
         <span className="footer__nav-link">Iletisim</span>
         <button className="footer__buy-btn" onClick={() => setBuyOpen(true)}>
           <img src="/basket.svg" alt="" className="footer__buy-icon" />
