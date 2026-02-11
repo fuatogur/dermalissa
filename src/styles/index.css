@@ -35,6 +35,7 @@ a {
 }
 
 button {
+    color: var(--color-dark);
     cursor: pointer;
     border: none;
     background: none;
