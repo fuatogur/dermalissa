@@ -1350,6 +1350,10 @@ img {
 }
 
 @media (max-width: 768px) {
+    .menu-slider__card {
+        background: none !important;
+    }
+
     .header {
         padding: 0 20px;
     }
