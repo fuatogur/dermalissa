@@ -28,6 +28,17 @@ const FALLBACK = {
     ru: { title: "Блог - Dermalissa", description: "Экспертный контент по уходу за кожей, косметической науке и советам по красоте в блоге Dermalissa." },
     ar: { title: "المدونة - Dermalissa", description: "محتوى متخصص حول العناية بالبشرة وعلم التجميل ونصائح الجمال في مدونة Dermalissa." },
   },
+  contact: {
+    tr: { title: "İletişim - Dermalissa", description: "Dermalissa ile iletişime geçin. Cilt bakımı ve ürünlerimiz hakkında merak ettiğiniz her şeyi bizimle paylaşabilirsiniz. WhatsApp, telefon ve e-posta ile bize ulaşın." },
+    en: { title: "Contact - Dermalissa", description: "Get in touch with Dermalissa. Share anything you are curious about regarding skincare and our products. Reach us via WhatsApp, phone, or email." },
+    de: { title: "Kontakt - Dermalissa", description: "Kontaktieren Sie Dermalissa. Teilen Sie uns alles mit, was Sie über Hautpflege und unsere Produkte wissen möchten. Erreichen Sie uns per WhatsApp, Telefon oder E-Mail." },
+    fr: { title: "Contact - Dermalissa", description: "Contactez Dermalissa. Partagez avec nous tout ce qui vous intéresse concernant les soins de la peau et nos produits. Joignez-nous par WhatsApp, téléphone ou e-mail." },
+    es: { title: "Contacto - Dermalissa", description: "Póngase en contacto con Dermalissa. Comparta con nosotros cualquier consulta sobre el cuidado de la piel y nuestros productos. Contáctenos por WhatsApp, teléfono o correo electrónico." },
+    it: { title: "Contatti - Dermalissa", description: "Contatta Dermalissa. Condividi con noi qualsiasi domanda sulla cura della pelle e i nostri prodotti. Raggiungici tramite WhatsApp, telefono o e-mail." },
+    pt: { title: "Contacto - Dermalissa", description: "Entre em contacto com a Dermalissa. Partilhe connosco qualquer questão sobre cuidados com a pele e os nossos produtos. Contacte-nos por WhatsApp, telefone ou e-mail." },
+    ru: { title: "Контакты - Dermalissa", description: "Свяжитесь с Dermalissa. Поделитесь с нами любыми вопросами об уходе за кожей и нашей продукции. Свяжитесь с нами через WhatsApp, телефон или электронную почту." },
+    ar: { title: "اتصل بنا - Dermalissa", description: "تواصل مع Dermalissa. شاركنا أي استفسار حول العناية بالبشرة ومنتجاتنا. تواصل معنا عبر واتساب أو الهاتف أو البريد الإلكتروني." },
+  },
 };
 
 const LOCALE_MAP = {
@@ -89,6 +100,18 @@ export default function useSeo({ lang = "tr", page = "home", slug = null, produc
       };
     }
 
+    if (page === "contact") {
+      const fb = FALLBACK.contact[safeLang] || FALLBACK.contact.tr;
+      return {
+        title: fb.title,
+        description: fb.description,
+        ogImage: `${BASE_URL}/og-image.jpg`,
+        canonical: `${BASE_URL}/${safeLang}/contact`,
+        locale: LOCALE_MAP[safeLang] || "tr_TR",
+        ogType: "website",
+      };
+    }
+
     if (page === "blogDetail" && blogPost) {
       const postTitle = blogPost.title[safeLang] || blogPost.title.tr;
       const postExcerpt = blogPost.excerpt[safeLang] || blogPost.excerpt.tr;
@@ -140,19 +163,22 @@ export default function useSeo({ lang = "tr", page = "home", slug = null, produc
     // Hreflang
     SUPPORTED_LANGS.forEach((l) => {
       let href;
-      if (page === "blog") href = `${BASE_URL}/${l}/blog`;
+      if (page === "contact") href = `${BASE_URL}/${l}/contact`;
+      else if (page === "blog") href = `${BASE_URL}/${l}/blog`;
       else if (page === "blogDetail" && slug) href = `${BASE_URL}/${l}/blog/${slug}`;
       else if (slug) href = `${BASE_URL}/${l}/${slug}`;
       else href = `${BASE_URL}/${l}`;
       setLink("alternate", "href", href, { hreflang: l });
     });
-    const defaultHref = page === "blog"
-      ? `${BASE_URL}/tr/blog`
-      : page === "blogDetail" && slug
-        ? `${BASE_URL}/tr/blog/${slug}`
-        : slug
-          ? `${BASE_URL}/tr/${slug}`
-          : `${BASE_URL}/tr`;
+    const defaultHref = page === "contact"
+      ? `${BASE_URL}/tr/contact`
+      : page === "blog"
+        ? `${BASE_URL}/tr/blog`
+        : page === "blogDetail" && slug
+          ? `${BASE_URL}/tr/blog/${slug}`
+          : slug
+            ? `${BASE_URL}/tr/${slug}`
+            : `${BASE_URL}/tr`;
     setLink("alternate", "href", defaultHref, { hreflang: "x-default" });
   }, [seo, safeLang, slug, page]);
 }

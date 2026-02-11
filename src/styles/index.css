@@ -1207,6 +1207,102 @@ img {
     font-weight: 500;
 }
 
+/* ============ CONTACT PAGE ============ */
+.contact-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 40px;
+}
+
+.contact-page__container {
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+}
+
+.contact-page__image {
+    flex: 0 0 45%;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.contact-page__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contact-page__content {
+    flex: 1;
+    padding-top: 20px;
+}
+
+.contact-page__title {
+    font-family: var(--font-primary);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 30px;
+}
+
+.contact-page__description {
+    margin-bottom: 30px;
+}
+
+.contact-page__description p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 2px;
+}
+
+.contact-page__thankyou {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.contact-page__subtitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 20px;
+}
+
+.contact-page__cards {
+    display: flex;
+    gap: 16px;
+    font-style: normal;
+    flex-wrap: wrap;
+}
+
+.contact-page__card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 24px;
+    border: 1px solid var(--color-border);
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-dark);
+    transition: var(--transition-smooth);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.contact-page__card:hover {
+    border-color: var(--color-dark);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.contact-page__card-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1280px) {
     .blog-page__grid {
@@ -1239,6 +1335,20 @@ img {
 
     .blog-detail {
         padding: 20px 30px 60px;
+    }
+
+    .contact-page {
+        padding: 40px 30px;
+    }
+
+    .contact-page__container {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .contact-page__image {
+        flex: none;
+        width: 100%;
     }
 }
 
@@ -1330,6 +1440,26 @@ img {
 
     .blog-detail__hero-img {
         max-height: 300px;
+    }
+
+    .contact-page {
+        padding: 20px 16px;
+    }
+
+    .contact-page__container {
+        gap: 30px;
+    }
+
+    .contact-page__title {
+        font-size: 24px;
+    }
+
+    .contact-page__cards {
+        flex-direction: column;
+    }
+
+    .contact-page__card {
+        justify-content: center;
     }
 }
 

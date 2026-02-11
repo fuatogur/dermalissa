@@ -20,7 +20,7 @@ export default function Footer({ onProductsClick, currentLang }) {
           Urunler
         </span>
         <span className="footer__nav-link" onClick={() => navigate(`/${currentLang || 'tr'}/blog`)}>Blog</span>
-        <span className="footer__nav-link">Iletisim</span>
+        <span className="footer__nav-link" onClick={() => navigate(`/${currentLang || 'tr'}/contact`)}>Iletisim</span>
         <button className="footer__buy-btn" onClick={() => setBuyOpen(true)}>
           <img src="/basket.svg" alt="" className="footer__buy-icon" />
           Satin Al
