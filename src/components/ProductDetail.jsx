@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const tabKeys = [
   { key: "result", label: "Result" },
@@ -10,6 +10,29 @@ const tabKeys = [
 
 export default function ProductDetail({ product }) {
   const [activeTab, setActiveTab] = useState("result");
+  const [videoOpen, setVideoOpen] = useState(false);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (!videoOpen) return;
+    const handleKey = (e) => {
+      if (e.key === "Escape") setVideoOpen(false);
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [videoOpen]);
+
+  useEffect(() => {
+    if (videoOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
+    }
+  }, [videoOpen]);
 
   if (!product) return null;
 
@@ -29,7 +52,40 @@ export default function ProductDetail({ product }) {
                 </div>
             )}
           </div>
+
+          {product.video && (
+              <button
+                  className="product-page__video-btn"
+                  onClick={() => setVideoOpen(true)}
+              >
+                <span className="product-page__video-btn-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="11" viewBox="0 0 10 11" fill="none">
+                    <path d="M9.92184 6.12039C9.66934 7.10525 8.4762 7.80119 6.08977 9.19312C3.78285 10.5386 2.62942 11.2115 1.69988 10.941C1.31557 10.8292 0.96542 10.6169 0.683027 10.3244C1.27724e-07 9.61684 0 8.24456 0 5.49999C0 2.75542 1.27724e-07 1.38314 0.683027 0.675634C0.96542 0.383129 1.31557 0.170779 1.69988 0.0589748C2.62942 -0.211456 3.78285 0.461317 6.08977 1.80688C8.4762 3.19877 9.66934 3.89473 9.92184 4.87959C10.0261 5.28615 10.0261 5.71383 9.92184 6.12039Z" fill="white"/>
+                  </svg>
+                </span>
+                <span className="product-page__video-btn-text">Videoyu izle</span>
+              </button>
+          )}
         </div>
+
+        {videoOpen && product.video && (
+            <div className="video-modal-overlay" onClick={() => setVideoOpen(false)}>
+              <div className="video-modal" onClick={(e) => e.stopPropagation()}>
+                <button className="video-modal__close" onClick={() => setVideoOpen(false)}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                </button>
+                <video
+                    ref={videoRef}
+                    className="video-modal__player"
+                    src={product.video}
+                    controls
+                    autoPlay
+                />
+              </div>
+            </div>
+        )}
 
         <div className="product-page__info">
           <h1 className="product-page__title">{product.name}</h1>
