@@ -538,8 +538,8 @@ img {
     flex: 0 0 560px;
     position: relative;
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
