@@ -8,10 +8,45 @@ const tabKeys = [
   { key: "b2b", label: "B2B" },
 ];
 
+const RETINOL_360_FRAMES = Array.from({ length: 131 }, (_, index) => {
+  const fileNo = String(index + 1000).padStart(4, "0");
+  return `/frame/IMG_${fileNo}.png`;
+});
+
+const RETINOL_360_SLUG = "retinol-night-cream";
+const DRAG_SENSITIVITY_PX = 10;
+
 export default function ProductDetail({ product }) {
   const [activeTab, setActiveTab] = useState("result");
   const [videoOpen, setVideoOpen] = useState(false);
+  const [frameIndex, setFrameIndex] = useState(0);
+  const [isDragging360, setIsDragging360] = useState(false);
   const videoRef = useRef(null);
+  const dragStartXRef = useRef(0);
+  const dragStartFrameRef = useRef(0);
+  const isRetinol360 = product?.slug === RETINOL_360_SLUG;
+
+  const getWrappedFrameIndex = (value) => {
+    const max = RETINOL_360_FRAMES.length;
+    return ((value % max) + max) % max;
+  };
+
+  const startDrag360 = (clientX) => {
+    dragStartXRef.current = clientX;
+    dragStartFrameRef.current = frameIndex;
+    setIsDragging360(true);
+  };
+
+  const moveDrag360 = (clientX) => {
+    if (!isDragging360) return;
+    const deltaX = clientX - dragStartXRef.current;
+    const frameShift = Math.trunc(deltaX / DRAG_SENSITIVITY_PX);
+    setFrameIndex(getWrappedFrameIndex(dragStartFrameRef.current + frameShift));
+  };
+
+  const endDrag360 = () => {
+    setIsDragging360(false);
+  };
 
   useEffect(() => {
     if (!videoOpen) return;
@@ -34,6 +69,30 @@ export default function ProductDetail({ product }) {
     }
   }, [videoOpen]);
 
+  useEffect(() => {
+    if (!isRetinol360) return;
+    RETINOL_360_FRAMES.forEach((frameSrc) => {
+      const img = new Image();
+      img.src = frameSrc;
+    });
+  }, [isRetinol360]);
+
+  useEffect(() => {
+    setFrameIndex(0);
+    setIsDragging360(false);
+  }, [product?.slug]);
+
+  useEffect(() => {
+    if (!isDragging360) return;
+    const stopDragging = () => setIsDragging360(false);
+    window.addEventListener("pointerup", stopDragging);
+    window.addEventListener("pointercancel", stopDragging);
+    return () => {
+      window.removeEventListener("pointerup", stopDragging);
+      window.removeEventListener("pointercancel", stopDragging);
+    };
+  }, [isDragging360]);
+
   if (!product) return null;
 
   return (
@@ -52,6 +111,55 @@ export default function ProductDetail({ product }) {
                 </div>
             )}
           </div>
+
+          {isRetinol360 && (
+              <div className="product-page__viewer360">
+                <div
+                    className={`product-page__viewer360-stage ${isDragging360 ? "is-dragging" : ""}`}
+                    role="slider"
+                    aria-label={`${product.name} 360 degree view`}
+                    aria-valuemin={1}
+                    aria-valuemax={RETINOL_360_FRAMES.length}
+                    aria-valuenow={frameIndex + 1}
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "ArrowRight") {
+                        setFrameIndex((prev) => getWrappedFrameIndex(prev + 1));
+                      }
+                      if (e.key === "ArrowLeft") {
+                        setFrameIndex((prev) => getWrappedFrameIndex(prev - 1));
+                      }
+                    }}
+                    onPointerDown={(e) => {
+                      e.currentTarget.setPointerCapture(e.pointerId);
+                      startDrag360(e.clientX);
+                    }}
+                    onPointerMove={(e) => {
+                      if (!isDragging360) return;
+                      e.preventDefault();
+                      moveDrag360(e.clientX);
+                    }}
+                    onPointerUp={(e) => {
+                      e.currentTarget.releasePointerCapture(e.pointerId);
+                      endDrag360();
+                    }}
+                    onPointerCancel={(e) => {
+                      e.currentTarget.releasePointerCapture(e.pointerId);
+                      endDrag360();
+                    }}
+                >
+                  <img
+                      src={RETINOL_360_FRAMES[frameIndex]}
+                      alt={`${product.name} frame ${frameIndex + 1}`}
+                      className="product-page__viewer360-img"
+                      draggable={false}
+                  />
+                </div>
+                <p className="product-page__viewer360-hint">
+                  360° gorunum: urunu saga/sola surukleyin.
+                </p>
+              </div>
+          )}
 
           {product.video && (
               <button
