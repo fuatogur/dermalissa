@@ -98,6 +98,8 @@ export default function ProductDetail({ product }) {
   return (
       <div className="product-page">
         <div className="product-page__image">
+          <img src="/deneme3.jpg" alt="SES Kimya A.S." className="" style={{maxWidth: '350px', width: '100%'}}/>
+          <img src="/deneme4.jpg" alt="SES Kimya A.S." className="" style={{maxWidth: '350px', width: '100%'}}/>
           <div className="product-page__image-box">
             {(product.detailImage || product.image) ? (
                 <img
@@ -111,7 +113,6 @@ export default function ProductDetail({ product }) {
                 </div>
             )}
           </div>
-
           {isRetinol360 && (
               <div className="product-page__viewer360">
                 <div

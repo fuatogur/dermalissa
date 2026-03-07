@@ -945,9 +945,14 @@ img {
     background: var(--color-light);
 }
 
+.footer__logo-box {
+
+}
+
 .footer__copyright {
     font-size: 13px;
     color: var(--color-gray);
+    margin-top: 10px;
 }
 
 .footer__center {
@@ -957,8 +962,9 @@ img {
 }
 
 .footer__partner-logo {
-    height: 60px;
+    height: 66px;
     object-fit: contain;
+    object-position: -10px;
 }
 
 .footer__nav {
