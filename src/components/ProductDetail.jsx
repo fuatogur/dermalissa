@@ -8,26 +8,25 @@ const tabKeys = [
   { key: "b2b", label: "B2B" },
 ];
 
-const RETINOL_360_FRAMES = Array.from({ length: 131 }, (_, index) => {
-  const fileNo = String(index + 1000).padStart(4, "0");
-  return `/frame/IMG_${fileNo}.png`;
-});
-
-const RETINOL_360_SLUG = "retinol-night-cream";
 const DRAG_SENSITIVITY_PX = 10;
 
 export default function ProductDetail({ product }) {
   const [activeTab, setActiveTab] = useState("result");
   const [videoOpen, setVideoOpen] = useState(false);
+  const [modal360Open, setModal360Open] = useState(false);
   const [frameIndex, setFrameIndex] = useState(0);
   const [isDragging360, setIsDragging360] = useState(false);
+  const [isHoveringImage, setIsHoveringImage] = useState(false);
   const videoRef = useRef(null);
   const dragStartXRef = useRef(0);
   const dragStartFrameRef = useRef(0);
-  const isRetinol360 = product?.slug === RETINOL_360_SLUG;
+
+  const frames360 = product?.frames360 ?? [];
+  const has360 = frames360.length > 0;
+  const hasVideo = Boolean(product?.video);
 
   const getWrappedFrameIndex = (value) => {
-    const max = RETINOL_360_FRAMES.length;
+    const max = frames360.length;
     return ((value % max) + max) % max;
   };
 
@@ -48,17 +47,22 @@ export default function ProductDetail({ product }) {
     setIsDragging360(false);
   };
 
+  // Escape key closes whichever modal is open
   useEffect(() => {
-    if (!videoOpen) return;
+    if (!videoOpen && !modal360Open) return;
     const handleKey = (e) => {
-      if (e.key === "Escape") setVideoOpen(false);
+      if (e.key === "Escape") {
+        setVideoOpen(false);
+        setModal360Open(false);
+      }
     };
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
-  }, [videoOpen]);
+  }, [videoOpen, modal360Open]);
 
+  // Body scroll lock
   useEffect(() => {
-    if (videoOpen) {
+    if (videoOpen || modal360Open) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -67,251 +71,276 @@ export default function ProductDetail({ product }) {
         videoRef.current.currentTime = 0;
       }
     }
-  }, [videoOpen]);
+  }, [videoOpen, modal360Open]);
 
+  // Preload 360 frames when product has them
   useEffect(() => {
-    if (!isRetinol360) return;
-    RETINOL_360_FRAMES.forEach((frameSrc) => {
+    if (!has360) return;
+    frames360.forEach((src) => {
       const img = new Image();
-      img.src = frameSrc;
+      img.src = src;
     });
-  }, [isRetinol360]);
+  }, [product?.slug]);
 
+  // Reset frame state on product change
   useEffect(() => {
     setFrameIndex(0);
     setIsDragging360(false);
   }, [product?.slug]);
 
+  // Global pointer-up to stop dragging
   useEffect(() => {
     if (!isDragging360) return;
-    const stopDragging = () => setIsDragging360(false);
-    window.addEventListener("pointerup", stopDragging);
-    window.addEventListener("pointercancel", stopDragging);
+    const stop = () => setIsDragging360(false);
+    window.addEventListener("pointerup", stop);
+    window.addEventListener("pointercancel", stop);
     return () => {
-      window.removeEventListener("pointerup", stopDragging);
-      window.removeEventListener("pointercancel", stopDragging);
+      window.removeEventListener("pointerup", stop);
+      window.removeEventListener("pointercancel", stop);
     };
   }, [isDragging360]);
 
   if (!product) return null;
 
   return (
-      <div className="product-page">
-        <div className="product-page__image">
-          <div className="product-page__image-box">
-            {(product.detailImage || product.image) ? (
-                <img
-                    src={product.detailImage || product.image}
-                    alt={product.name}
-                    className="product-page__img"
-                />
-            ) : (
-                <div className="product-page__placeholder">
-                  <span>{product.name}</span>
-                </div>
-            )}
-          </div>
-          {isRetinol360 && (
-              <div className="product-page__viewer360">
-                <div
-                    className={`product-page__viewer360-stage ${isDragging360 ? "is-dragging" : ""}`}
-                    role="slider"
-                    aria-label={`${product.name} 360 degree view`}
-                    aria-valuemin={1}
-                    aria-valuemax={RETINOL_360_FRAMES.length}
-                    aria-valuenow={frameIndex + 1}
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === "ArrowRight") {
-                        setFrameIndex((prev) => getWrappedFrameIndex(prev + 1));
-                      }
-                      if (e.key === "ArrowLeft") {
-                        setFrameIndex((prev) => getWrappedFrameIndex(prev - 1));
-                      }
-                    }}
-                    onPointerDown={(e) => {
-                      e.currentTarget.setPointerCapture(e.pointerId);
-                      startDrag360(e.clientX);
-                    }}
-                    onPointerMove={(e) => {
-                      if (!isDragging360) return;
-                      e.preventDefault();
-                      moveDrag360(e.clientX);
-                    }}
-                    onPointerUp={(e) => {
-                      e.currentTarget.releasePointerCapture(e.pointerId);
-                      endDrag360();
-                    }}
-                    onPointerCancel={(e) => {
-                      e.currentTarget.releasePointerCapture(e.pointerId);
-                      endDrag360();
-                    }}
-                >
-                  <img
-                      src={RETINOL_360_FRAMES[frameIndex]}
-                      alt={`${product.name} frame ${frameIndex + 1}`}
-                      className="product-page__viewer360-img"
-                      draggable={false}
-                  />
-                </div>
-                <p className="product-page__viewer360-hint">
-                  360° gorunum: urunu saga/sola surukleyin.
-                </p>
-              </div>
+    <div className="product-page">
+      <div className="product-page__image">
+        <div
+          className="product-page__image-box"
+          onMouseEnter={() => setIsHoveringImage(true)}
+          onMouseLeave={() => setIsHoveringImage(false)}
+        >
+          {(product.detailImage || product.image) ? (
+            <img
+              src={product.detailImage || product.image}
+              alt={product.name}
+              className="product-page__img"
+            />
+          ) : (
+            <div className="product-page__placeholder">
+              <span>{product.name}</span>
+            </div>
           )}
 
-          {product.video && (
-              <button
-                  className="product-page__video-btn"
-                  onClick={() => setVideoOpen(true)}
-              >
-                <span className="product-page__video-btn-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="11" viewBox="0 0 10 11" fill="none">
-                    <path d="M9.92184 6.12039C9.66934 7.10525 8.4762 7.80119 6.08977 9.19312C3.78285 10.5386 2.62942 11.2115 1.69988 10.941C1.31557 10.8292 0.96542 10.6169 0.683027 10.3244C1.27724e-07 9.61684 0 8.24456 0 5.49999C0 2.75542 1.27724e-07 1.38314 0.683027 0.675634C0.96542 0.383129 1.31557 0.170779 1.69988 0.0589748C2.62942 -0.211456 3.78285 0.461317 6.08977 1.80688C8.4762 3.19877 9.66934 3.89473 9.92184 4.87959C10.0261 5.28615 10.0261 5.71383 9.92184 6.12039Z" fill="white"/>
-                  </svg>
-                </span>
-                <span className="product-page__video-btn-text">Videoyu izle</span>
-              </button>
+          {has360 && isHoveringImage && (
+            <button
+              className="product-page__360-btn"
+              onClick={() => setModal360Open(true)}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                <path d="M3.6 9h16.8M3.6 15h16.8" />
+                <path d="M12 3a15.3 15.3 0 0 1 4 9 15.3 15.3 0 0 1-4 9 15.3 15.3 0 0 1-4-9 15.3 15.3 0 0 1 4-9z" />
+              </svg>
+              <span>360° görünüm için tıklayın</span>
+            </button>
           )}
         </div>
 
-        {videoOpen && product.video && (
-            <div className="video-modal-overlay" onClick={() => setVideoOpen(false)}>
-              <div className="video-modal" onClick={(e) => e.stopPropagation()}>
-                <button className="video-modal__close" onClick={() => setVideoOpen(false)}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                    <path d="M18 6L6 18M6 6l12 12" />
-                  </svg>
-                </button>
-                <video
-                    ref={videoRef}
-                    className="video-modal__player"
-                    src={product.video}
-                    controls
-                    autoPlay
-                />
-              </div>
-            </div>
+        {hasVideo && (
+          <button
+            className="product-page__video-btn"
+            onClick={() => setVideoOpen(true)}
+          >
+            <span className="product-page__video-btn-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="11" viewBox="0 0 10 11" fill="none">
+                <path d="M9.92184 6.12039C9.66934 7.10525 8.4762 7.80119 6.08977 9.19312C3.78285 10.5386 2.62942 11.2115 1.69988 10.941C1.31557 10.8292 0.96542 10.6169 0.683027 10.3244C1.27724e-07 9.61684 0 8.24456 0 5.49999C0 2.75542 1.27724e-07 1.38314 0.683027 0.675634C0.96542 0.383129 1.31557 0.170779 1.69988 0.0589748C2.62942 -0.211456 3.78285 0.461317 6.08977 1.80688C8.4762 3.19877 9.66934 3.89473 9.92184 4.87959C10.0261 5.28615 10.0261 5.71383 9.92184 6.12039Z" fill="white"/>
+              </svg>
+            </span>
+            <span className="product-page__video-btn-text">Videoyu izle</span>
+          </button>
         )}
+      </div>
 
-        <div className="product-page__info">
-          <h1 className="product-page__title">{product.name}</h1>
-          <p className="product-page__desc">{product.description}</p>
-
-          <div className="product-page__detail">
-            <div
-                className="product-page__detail-icon"
-                style={{ background: product.bgColor, color: product.color }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M20.1932 12.999C21.8501 15.8688 20.8669 19.5383 17.9971 21.1952C15.1273 22.8521 11.4578 21.8688 9.80094 18.999M20.1932 12.999C18.5364 10.1293 14.8669 9.14604 11.9971 10.8029C9.12734 12.4598 8.14409 16.1293 9.80094 18.999M20.1932 12.999L9.80094 18.999" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M10.0428 5.54203L15.1278 2.5374C17 1.43112 19.394 2.08763 20.4749 4.00376C21.3433 5.54315 21.1 7.4272 20 8.6822M10.0428 5.54203L4.95785 8.54667C3.08563 9.65294 2.44415 12.1031 3.52508 14.0192C4.17499 15.1713 5.29956 15.868 6.5 16M10.0428 5.54203L11.5 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      {/* Video Modal */}
+      {videoOpen && hasVideo && (
+        <div className="video-modal-overlay" onClick={() => setVideoOpen(false)}>
+          <div className="video-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="video-modal__close" onClick={() => setVideoOpen(false)}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <path d="M18 6L6 18M6 6l12 12" />
               </svg>
-            </div>
-            <div className="product-page__detail-text">
-              <span className="product-page__detail-label">Indications: </span>
-              {product.indications}
-            </div>
+            </button>
+            <video
+              ref={videoRef}
+              className="video-modal__player"
+              src={product.video}
+              controls
+              autoPlay
+            />
           </div>
+        </div>
+      )}
 
-          <div className="product-page__detail">
-            <div
-                className="product-page__detail-icon"
-                style={{ background: product.bgColor, color: product.color }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M8.01562 2.00171H15.9751" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M5.53125 11.1499C5.53125 11.1499 8.53125 10.224 11.0313 13.0015M18.5313 11.6128C18.5313 11.6128 17.9197 12.592 17.0313 13.0017" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M10.0312 18.0037L10.0399 18.0013" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M14.0312 14.0037L14.0399 14.0013" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M9.52693 2.2146V6.2572C9.52693 6.91916 9.17519 7.48994 8.59404 7.80139C5.60885 9.4012 2.80495 13.9337 5.74609 18.579C6.4044 19.7185 8.57684 21.9976 12.0001 21.9976C15.4233 21.9976 17.5957 19.7185 18.254 18.579C21.1952 13.9337 18.3913 9.4012 15.4061 7.80139C14.8249 7.48994 14.4725 6.91916 14.4725 6.2572V2.26338" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      {/* 360° Modal */}
+      {modal360Open && has360 && (
+        <div className="modal360-overlay" onClick={() => setModal360Open(false)}>
+          <div className="modal360" onClick={(e) => e.stopPropagation()}>
+            <button className="modal360__close" onClick={() => setModal360Open(false)}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <path d="M18 6L6 18M6 6l12 12" />
               </svg>
+            </button>
+            <div
+              className={`modal360__stage ${isDragging360 ? "is-dragging" : ""}`}
+              role="slider"
+              aria-label={`${product.name} 360 degree view`}
+              aria-valuemin={1}
+              aria-valuemax={frames360.length}
+              aria-valuenow={frameIndex + 1}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "ArrowRight") setFrameIndex((prev) => getWrappedFrameIndex(prev + 1));
+                if (e.key === "ArrowLeft") setFrameIndex((prev) => getWrappedFrameIndex(prev - 1));
+              }}
+              onPointerDown={(e) => {
+                e.currentTarget.setPointerCapture(e.pointerId);
+                startDrag360(e.clientX);
+              }}
+              onPointerMove={(e) => {
+                if (!isDragging360) return;
+                e.preventDefault();
+                moveDrag360(e.clientX);
+              }}
+              onPointerUp={(e) => {
+                e.currentTarget.releasePointerCapture(e.pointerId);
+                endDrag360();
+              }}
+              onPointerCancel={(e) => {
+                e.currentTarget.releasePointerCapture(e.pointerId);
+                endDrag360();
+              }}
+            >
+              <img
+                src={frames360[frameIndex]}
+                alt={`${product.name} frame ${frameIndex + 1}`}
+                className="modal360__img"
+                draggable={false}
+              />
             </div>
-            <div className="product-page__detail-text">
-              <span className="product-page__detail-label">Active Ingredients: </span>
-              {product.activeIngredients}
-            </div>
+            <p className="modal360__hint">Ürünü sağa/sola sürükleyerek 360° görüntüleyin</p>
           </div>
+        </div>
+      )}
 
-          <h3 className="product-page__actions-title">Action:</h3>
-          <ul className="product-page__actions-list">
-            {product.actions.map((action, i) => (
-                <li key={i}>{action}</li>
-            ))}
-          </ul>
+      <div className="product-page__info">
+        <h1 className="product-page__title">{product.name}</h1>
+        <p className="product-page__desc">{product.description}</p>
 
-          <div className="product-page__tabs">
-            {tabKeys.map((tab) => (
-                <button
-                    key={tab.key}
-                    className={`product-page__tab ${activeTab === tab.key ? "active" : ""}`}
-                    onClick={() => setActiveTab(tab.key)}
-                >
-                  {tab.label}
-                </button>
-            ))}
+        <div className="product-page__detail">
+          <div
+            className="product-page__detail-icon"
+            style={{ background: product.bgColor, color: product.color }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M20.1932 12.999C21.8501 15.8688 20.8669 19.5383 17.9971 21.1952C15.1273 22.8521 11.4578 21.8688 9.80094 18.999M20.1932 12.999C18.5364 10.1293 14.8669 9.14604 11.9971 10.8029C9.12734 12.4598 8.14409 16.1293 9.80094 18.999M20.1932 12.999L9.80094 18.999" stroke="currentColor" strokeWidth="1.5"/>
+              <path d="M10.0428 5.54203L15.1278 2.5374C17 1.43112 19.394 2.08763 20.4749 4.00376C21.3433 5.54315 21.1 7.4272 20 8.6822M10.0428 5.54203L4.95785 8.54667C3.08563 9.65294 2.44415 12.1031 3.52508 14.0192C4.17499 15.1713 5.29956 15.868 6.5 16M10.0428 5.54203L11.5 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
+          <div className="product-page__detail-text">
+            <span className="product-page__detail-label">Indications: </span>
+            {product.indications}
+          </div>
+        </div>
 
-          <div className="product-page__tab-content">
-            {activeTab === "b2b" ? (
-              <div className="b2b-grid">
-                <div className="b2b-card">
-                  <div className="b2b-card__icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M8 2v4M16 2v4" />
-                      <rect x="3" y="6" width="18" height="15" rx="2" />
-                      <path d="M12 6v15M8 11h8M8 15h4" />
-                    </svg>
-                  </div>
-                  <div className="b2b-card__text">
-                    <span className="b2b-card__label">Product Volume</span>
-                    <span className="b2b-card__value">{product.b2b.volume}</span>
-                  </div>
+        <div className="product-page__detail">
+          <div
+            className="product-page__detail-icon"
+            style={{ background: product.bgColor, color: product.color }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M8.01562 2.00171H15.9751" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M5.53125 11.1499C5.53125 11.1499 8.53125 10.224 11.0313 13.0015M18.5313 11.6128C18.5313 11.6128 17.9197 12.592 17.0313 13.0017" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M10.0312 18.0037L10.0399 18.0013" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M14.0312 14.0037L14.0399 14.0013" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M9.52693 2.2146V6.2572C9.52693 6.91916 9.17519 7.48994 8.59404 7.80139C5.60885 9.4012 2.80495 13.9337 5.74609 18.579C6.4044 19.7185 8.57684 21.9976 12.0001 21.9976C15.4233 21.9976 17.5957 19.7185 18.254 18.579C21.1952 13.9337 18.3913 9.4012 15.4061 7.80139C14.8249 7.48994 14.4725 6.91916 14.4725 6.2572V2.26338" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <div className="product-page__detail-text">
+            <span className="product-page__detail-label">Active Ingredients: </span>
+            {product.activeIngredients}
+          </div>
+        </div>
+
+        <h3 className="product-page__actions-title">Action:</h3>
+        <ul className="product-page__actions-list">
+          {product.actions.map((action, i) => (
+            <li key={i}>{action}</li>
+          ))}
+        </ul>
+
+        <div className="product-page__tabs">
+          {tabKeys.map((tab) => (
+            <button
+              key={tab.key}
+              className={`product-page__tab ${activeTab === tab.key ? "active" : ""}`}
+              onClick={() => setActiveTab(tab.key)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="product-page__tab-content">
+          {activeTab === "b2b" ? (
+            <div className="b2b-grid">
+              <div className="b2b-card">
+                <div className="b2b-card__icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M8 2v4M16 2v4" />
+                    <rect x="3" y="6" width="18" height="15" rx="2" />
+                    <path d="M12 6v15M8 11h8M8 15h4" />
+                  </svg>
                 </div>
-                <div className="b2b-card">
-                  <div className="b2b-card__icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 10V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h6" />
-                      <path d="M12 2l4 4-4 4" />
-                      <rect x="15" y="14" width="7" height="7" rx="1" />
-                    </svg>
-                  </div>
-                  <div className="b2b-card__text">
-                    <span className="b2b-card__label">Quantity in Box</span>
-                    <span className="b2b-card__value">{product.b2b.quantityInBox}</span>
-                  </div>
-                </div>
-                <div className="b2b-card">
-                  <div className="b2b-card__icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 3v17M8 7l4-4 4 4" />
-                      <circle cx="12" cy="20" r="1" />
-                      <path d="M17 13h3M4 13h3" />
-                    </svg>
-                  </div>
-                  <div className="b2b-card__text">
-                    <span className="b2b-card__label">Box Gross Weight</span>
-                    <span className="b2b-card__value">{product.b2b.boxGrossWeight}</span>
-                  </div>
-                </div>
-                <div className="b2b-card">
-                  <div className="b2b-card__icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z" />
-                      <path d="M14 14h7v7h-7z" strokeDasharray="3 2" />
-                    </svg>
-                  </div>
-                  <div className="b2b-card__text">
-                    <span className="b2b-card__label">Box Volume</span>
-                    <span className="b2b-card__value">{product.b2b.boxVolume}</span>
-                  </div>
+                <div className="b2b-card__text">
+                  <span className="b2b-card__label">Product Volume</span>
+                  <span className="b2b-card__value">{product.b2b.volume}</span>
                 </div>
               </div>
-            ) : (
-              product.tabs[activeTab]
-            )}
-          </div>
+              <div className="b2b-card">
+                <div className="b2b-card__icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 10V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h6" />
+                    <path d="M12 2l4 4-4 4" />
+                    <rect x="15" y="14" width="7" height="7" rx="1" />
+                  </svg>
+                </div>
+                <div className="b2b-card__text">
+                  <span className="b2b-card__label">Quantity in Box</span>
+                  <span className="b2b-card__value">{product.b2b.quantityInBox}</span>
+                </div>
+              </div>
+              <div className="b2b-card">
+                <div className="b2b-card__icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 3v17M8 7l4-4 4 4" />
+                    <circle cx="12" cy="20" r="1" />
+                    <path d="M17 13h3M4 13h3" />
+                  </svg>
+                </div>
+                <div className="b2b-card__text">
+                  <span className="b2b-card__label">Box Gross Weight</span>
+                  <span className="b2b-card__value">{product.b2b.boxGrossWeight}</span>
+                </div>
+              </div>
+              <div className="b2b-card">
+                <div className="b2b-card__icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z" />
+                    <path d="M14 14h7v7h-7z" strokeDasharray="3 2" />
+                  </svg>
+                </div>
+                <div className="b2b-card__text">
+                  <span className="b2b-card__label">Box Volume</span>
+                  <span className="b2b-card__value">{product.b2b.boxVolume}</span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            product.tabs[activeTab]
+          )}
         </div>
       </div>
+    </div>
   );
 }

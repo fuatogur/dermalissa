@@ -571,6 +571,107 @@ img {
     z-index: 1;
 }
 
+/* 360° Hover Button on product image */
+.product-page__360-btn {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.92);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-dark);
+    white-space: nowrap;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: var(--transition-smooth);
+    z-index: 2;
+}
+
+.product-page__360-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* 360° Full-screen Modal */
+.modal360-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.modal360 {
+    position: relative;
+    width: 90vw;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+}
+
+.modal360__close {
+    position: absolute;
+    top: -44px;
+    right: 0;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
+    z-index: 1;
+}
+
+.modal360__close:hover {
+    color: white;
+}
+
+.modal360__stage {
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    outline: none;
+    user-select: none;
+    touch-action: none;
+}
+
+.modal360__stage.is-dragging {
+    cursor: grabbing;
+}
+
+.modal360__img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.modal360__hint {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.3px;
+}
+
+/* Keep viewer360 styles intact for any potential legacy use */
 .product-page__viewer360 {
     width: 100%;
     margin-top: 18px;
@@ -1527,6 +1628,14 @@ img {
 
     .video-modal__close {
         top: -36px;
+    }
+
+    .modal360 {
+        width: 95vw;
+    }
+
+    .modal360__stage {
+        height: 55vh;
     }
 
     .enter-button__circle {
