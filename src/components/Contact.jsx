@@ -154,7 +154,7 @@ export default function Contact() {
             contactType: "customer service",
           },
         ],
-        email: "info@dermalissa.com",
+        email: "support@dermalissa.com",
       },
     });
     document.head.appendChild(script);
@@ -223,15 +223,15 @@ export default function Contact() {
             </a>
 
             <a
-              href="mailto:info@dermalissa.com"
+              href="mailto:support@dermalissa.com"
               className="contact-page__card"
-              aria-label="E-mail: info@dermalissa.com"
+              aria-label="E-mail: support@dermalissa.com"
               itemProp="contactPoint"
               itemScope
               itemType="https://schema.org/ContactPoint"
             >
               <img src="/mailbox.svg" alt="E-mail" className="contact-page__card-icon" width="24" height="24" />
-              <span itemProp="email">info@dermalissa.com</span>
+              <span itemProp="email">support@dermalissa.com</span>
             </a>
           </address>
         </div>
