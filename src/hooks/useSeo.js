@@ -75,12 +75,18 @@ export default function useSeo({ lang = "tr", page = "home", slug = null, produc
 
   const seo = useMemo(() => {
     if (page === "product" && product) {
-      const productTitle = product.name
-        ? `${product.name} - ${SITE_NAME}`
-        : SITE_NAME;
+      const rawName = product.name;
+      const resolvedName = rawName
+        ? (typeof rawName === "object" ? (rawName[safeLang] || rawName.en || "") : rawName)
+        : "";
+      const rawDesc = product.description;
+      const resolvedDesc = rawDesc
+        ? (typeof rawDesc === "object" ? (rawDesc[safeLang] || rawDesc.en || "") : rawDesc)
+        : "";
+      const productTitle = resolvedName ? `${resolvedName} - ${SITE_NAME}` : SITE_NAME;
       return {
         title: productTitle,
-        description: product.description || FALLBACK.home[safeLang]?.description || "",
+        description: resolvedDesc || FALLBACK.home[safeLang]?.description || "",
         ogImage: product.image ? `${BASE_URL}${product.image}` : `${BASE_URL}/og-image.jpg`,
         canonical: `${BASE_URL}/${safeLang}/${slug}`,
         locale: LOCALE_MAP[safeLang] || "tr_TR",

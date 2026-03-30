@@ -1,8 +1,18 @@
 import { useRef, useCallback, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { products } from "../data/products";
+
+function getProductName(product, lang) {
+  const name = product.name;
+  if (!name) return "";
+  if (typeof name === "string") return name;
+  return name[lang] || name.en || "";
+}
 
 export default function ProductSlider({ onSelectCenter, activeIndex, setActiveIndex }) {
   const trackRef = useRef(null);
+  const location = useLocation();
+  const currentLang = location.pathname.split("/").filter(Boolean)[0] || "tr";
   const dragStartX = useRef(0);
   const dragOffset = useRef(0);
   const isDragging = useRef(false);
@@ -124,7 +134,7 @@ export default function ProductSlider({ onSelectCenter, activeIndex, setActiveIn
                       {product.image ? (
                           <img
                               src={product.image}
-                              alt={product.name}
+                              alt={getProductName(product, currentLang)}
                               className="menu-slider__card-img menu-slider__card-img--center"
                               style={{ width: 200, height: 300, objectFit: "contain" }}
                           />
@@ -146,12 +156,12 @@ export default function ProductSlider({ onSelectCenter, activeIndex, setActiveIn
                                 fontWeight: 600,
                               }}
                           >
-                            {product.name}
+                            {getProductName(product, currentLang)}
                           </div>
                       )}
                     </div>
                     <div className="menu-slider__card-info">
-                      <div className="menu-slider__card-name">{product.name}</div>
+                      <div className="menu-slider__card-name">{getProductName(product, currentLang)}</div>
                       <div className="menu-slider__card-subtitle">{product.subtitle}</div>
                     </div>
                   </div>

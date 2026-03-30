@@ -188,7 +188,7 @@ function AppContent() {
               animation: "fadeSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
-            <ProductDetail product={currentProduct} />
+            <ProductDetail product={currentProduct} lang={currentLang} />
           </div>
         )}
 

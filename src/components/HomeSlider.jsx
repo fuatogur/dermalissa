@@ -133,7 +133,7 @@ export default function HomeSlider() {
                   {product.image ? (
                     <img
                       src={product.image}
-                      alt={product.name}
+                      alt={typeof product.name === "object" ? (product.name[currentLang] || product.name.en) : product.name}
                       className="home__slide-img home__slide-img--center"
                       style={{ width: 200, height: 300, objectFit: "contain" }}
                     />
@@ -155,7 +155,7 @@ export default function HomeSlider() {
                         fontWeight: 600,
                       }}
                     >
-                      {product.name}
+                      {typeof product.name === "object" ? (product.name[currentLang] || product.name.en) : product.name}
                     </div>
                   )}
                 </div>
@@ -166,7 +166,7 @@ export default function HomeSlider() {
       </div>
 
       <div className="home__slide-info" style={{ position: "absolute", bottom: "18%", zIndex: 20 }}>
-        <div className="home__slide-name">{currentProduct.name}</div>
+        <div className="home__slide-name">{typeof currentProduct.name === "object" ? (currentProduct.name[currentLang] || currentProduct.name.en) : currentProduct.name}</div>
         <div className="home__slide-subtitle">{currentProduct.subtitle}</div>
       </div>
 

@@ -1,16 +1,214 @@
 import { useState, useEffect, useRef } from "react";
 
-const tabKeys = [
-  { key: "result", label: "Result" },
-  { key: "typesOfSkin", label: "Types of Skin" },
-  { key: "usage", label: "Usage" },
-  { key: "application", label: "Application" },
-  { key: "b2b", label: "B2B" },
-];
+const TEXTS = {
+  en: {
+    indications: "Indications:",
+    activeIngredients: "Active Ingredients:",
+    action: "Action:",
+    tabs: {
+      result: "Result",
+      typesOfSkin: "Types of Skin",
+      usage: "Usage",
+      application: "Application",
+      b2b: "B2B",
+    },
+    productVolume: "Product Volume",
+    quantityInBox: "Quantity in Box",
+    boxGrossWeight: "Box Gross Weight",
+    boxVolume: "Box Volume",
+    view360: "Click for 360° view",
+    watchVideo: "Watch video",
+    drag360: "Drag left/right to view 360°",
+  },
+  tr: {
+    indications: "Endikasyonlar:",
+    activeIngredients: "Aktif İçerikler:",
+    action: "Etki:",
+    tabs: {
+      result: "Sonuç",
+      typesOfSkin: "Cilt Tipleri",
+      usage: "Kullanım",
+      application: "Uygulama",
+      b2b: "B2B",
+    },
+    productVolume: "Ürün Hacmi",
+    quantityInBox: "Kutudaki Miktar",
+    boxGrossWeight: "Kutu Brüt Ağırlığı",
+    boxVolume: "Kutu Hacmi",
+    view360: "360° görünüm için tıklayın",
+    watchVideo: "Videoyu izle",
+    drag360: "Ürünü sağa/sola sürükleyerek 360° görüntüleyin",
+  },
+  de: {
+    indications: "Indikationen:",
+    activeIngredients: "Wirkstoffe:",
+    action: "Wirkung:",
+    tabs: {
+      result: "Ergebnis",
+      typesOfSkin: "Hauttypen",
+      usage: "Anwendung",
+      application: "Auftragung",
+      b2b: "B2B",
+    },
+    productVolume: "Produktvolumen",
+    quantityInBox: "Menge pro Karton",
+    boxGrossWeight: "Karton Bruttogewicht",
+    boxVolume: "Kartonvolumen",
+    view360: "Für 360°-Ansicht klicken",
+    watchVideo: "Video ansehen",
+    drag360: "Ziehen Sie nach links/rechts für die 360°-Ansicht",
+  },
+  fr: {
+    indications: "Indications :",
+    activeIngredients: "Ingrédients actifs :",
+    action: "Action :",
+    tabs: {
+      result: "Résultat",
+      typesOfSkin: "Types de peau",
+      usage: "Utilisation",
+      application: "Application",
+      b2b: "B2B",
+    },
+    productVolume: "Volume du produit",
+    quantityInBox: "Quantité par boîte",
+    boxGrossWeight: "Poids brut de la boîte",
+    boxVolume: "Volume de la boîte",
+    view360: "Cliquez pour la vue 360°",
+    watchVideo: "Regarder la vidéo",
+    drag360: "Faites glisser à gauche/droite pour voir à 360°",
+  },
+  es: {
+    indications: "Indicaciones:",
+    activeIngredients: "Ingredientes activos:",
+    action: "Acción:",
+    tabs: {
+      result: "Resultado",
+      typesOfSkin: "Tipos de piel",
+      usage: "Uso",
+      application: "Aplicación",
+      b2b: "B2B",
+    },
+    productVolume: "Volumen del producto",
+    quantityInBox: "Cantidad por caja",
+    boxGrossWeight: "Peso bruto de la caja",
+    boxVolume: "Volumen de la caja",
+    view360: "Haga clic para vista 360°",
+    watchVideo: "Ver vídeo",
+    drag360: "Arrastre izquierda/derecha para ver en 360°",
+  },
+  it: {
+    indications: "Indicazioni:",
+    activeIngredients: "Ingredienti attivi:",
+    action: "Azione:",
+    tabs: {
+      result: "Risultato",
+      typesOfSkin: "Tipi di pelle",
+      usage: "Utilizzo",
+      application: "Applicazione",
+      b2b: "B2B",
+    },
+    productVolume: "Volume del prodotto",
+    quantityInBox: "Quantità per scatola",
+    boxGrossWeight: "Peso lordo della scatola",
+    boxVolume: "Volume della scatola",
+    view360: "Clicca per la vista 360°",
+    watchVideo: "Guarda il video",
+    drag360: "Trascina a sinistra/destra per vedere a 360°",
+  },
+  pt: {
+    indications: "Indicações:",
+    activeIngredients: "Ingredientes ativos:",
+    action: "Ação:",
+    tabs: {
+      result: "Resultado",
+      typesOfSkin: "Tipos de pele",
+      usage: "Uso",
+      application: "Aplicação",
+      b2b: "B2B",
+    },
+    productVolume: "Volume do produto",
+    quantityInBox: "Quantidade por caixa",
+    boxGrossWeight: "Peso bruto da caixa",
+    boxVolume: "Volume da caixa",
+    view360: "Clique para vista 360°",
+    watchVideo: "Assistir ao vídeo",
+    drag360: "Arraste para esquerda/direita para ver em 360°",
+  },
+  ru: {
+    indications: "Показания:",
+    activeIngredients: "Активные ингредиенты:",
+    action: "Действие:",
+    tabs: {
+      result: "Результат",
+      typesOfSkin: "Типы кожи",
+      usage: "Применение",
+      application: "Нанесение",
+      b2b: "B2B",
+    },
+    productVolume: "Объём продукта",
+    quantityInBox: "Количество в упаковке",
+    boxGrossWeight: "Вес брутто коробки",
+    boxVolume: "Объём коробки",
+    view360: "Нажмите для просмотра 360°",
+    watchVideo: "Смотреть видео",
+    drag360: "Перетащите влево/вправо для просмотра 360°",
+  },
+  ar: {
+    indications: "المؤشرات:",
+    activeIngredients: "المكونات الفعالة:",
+    action: "التأثير:",
+    tabs: {
+      result: "النتيجة",
+      typesOfSkin: "أنواع البشرة",
+      usage: "الاستخدام",
+      application: "التطبيق",
+      b2b: "B2B",
+    },
+    productVolume: "حجم المنتج",
+    quantityInBox: "الكمية في الصندوق",
+    boxGrossWeight: "الوزن الإجمالي للصندوق",
+    boxVolume: "حجم الصندوق",
+    view360: "انقر للعرض 360°",
+    watchVideo: "مشاهدة الفيديو",
+    drag360: "اسحب يساراً/يميناً للعرض بزاوية 360°",
+  },
+};
 
 const DRAG_SENSITIVITY_PX = 10;
 
-export default function ProductDetail({ product }) {
+// Resolve a multilingual field: { en: "...", tr: "..." } → string for given lang
+function t(field, lang) {
+  if (!field) return "";
+  if (typeof field === "string") return field;
+  return field[lang] || field.en || "";
+}
+
+// Resolve a multilingual array field: { en: [...], tr: [...] } → array for given lang
+function tArr(field, lang) {
+  if (!field) return [];
+  if (Array.isArray(field)) return field;
+  return (field[lang] && field[lang].length > 0) ? field[lang] : (field.en || []);
+}
+
+// Resolve multilingual tabs object: { en: { result: "", ... }, tr: {...} } → { result: "", ... }
+function tTabs(field, lang) {
+  if (!field) return {};
+  if (field.result !== undefined) return field; // plain object (backward compat)
+  const langTabs = field[lang];
+  if (langTabs && Object.values(langTabs).some(Boolean)) return langTabs;
+  return field.en || {};
+}
+
+export default function ProductDetail({ product, lang = "en" }) {
+  const texts = TEXTS[lang] || TEXTS.en;
+  const tabKeys = [
+    { key: "result", label: texts.tabs.result },
+    { key: "typesOfSkin", label: texts.tabs.typesOfSkin },
+    { key: "usage", label: texts.tabs.usage },
+    { key: "application", label: texts.tabs.application },
+    { key: "b2b", label: texts.tabs.b2b },
+  ];
+
   const [activeTab, setActiveTab] = useState("result");
   const [videoOpen, setVideoOpen] = useState(false);
   const [modal360Open, setModal360Open] = useState(false);
@@ -24,6 +222,13 @@ export default function ProductDetail({ product }) {
   const frames360 = product?.frames360 ?? [];
   const has360 = frames360.length > 0;
   const hasVideo = Boolean(product?.video);
+
+  const productName = t(product?.name, lang);
+  const productDescription = t(product?.description, lang);
+  const productIndications = t(product?.indications, lang);
+  const productActiveIngredients = t(product?.activeIngredients, lang);
+  const productActions = tArr(product?.actions, lang);
+  const productTabs = tTabs(product?.tabs, lang);
 
   const getWrappedFrameIndex = (value) => {
     const max = frames360.length;
@@ -47,7 +252,6 @@ export default function ProductDetail({ product }) {
     setIsDragging360(false);
   };
 
-  // Escape key closes whichever modal is open
   useEffect(() => {
     if (!videoOpen && !modal360Open) return;
     const handleKey = (e) => {
@@ -60,7 +264,6 @@ export default function ProductDetail({ product }) {
     return () => document.removeEventListener("keydown", handleKey);
   }, [videoOpen, modal360Open]);
 
-  // Body scroll lock
   useEffect(() => {
     if (videoOpen || modal360Open) {
       document.body.style.overflow = "hidden";
@@ -73,7 +276,6 @@ export default function ProductDetail({ product }) {
     }
   }, [videoOpen, modal360Open]);
 
-  // Preload 360 frames when product has them
   useEffect(() => {
     if (!has360) return;
     frames360.forEach((src) => {
@@ -82,13 +284,11 @@ export default function ProductDetail({ product }) {
     });
   }, [product?.slug]);
 
-  // Reset frame state on product change
   useEffect(() => {
     setFrameIndex(0);
     setIsDragging360(false);
   }, [product?.slug]);
 
-  // Global pointer-up to stop dragging
   useEffect(() => {
     if (!isDragging360) return;
     const stop = () => setIsDragging360(false);
@@ -113,12 +313,12 @@ export default function ProductDetail({ product }) {
           {(product.detailImage || product.image) ? (
             <img
               src={product.detailImage || product.image}
-              alt={product.name}
+              alt={productName}
               className="product-page__img"
             />
           ) : (
             <div className="product-page__placeholder">
-              <span>{product.name}</span>
+              <span>{productName}</span>
             </div>
           )}
 
@@ -132,7 +332,7 @@ export default function ProductDetail({ product }) {
                 <path d="M3.6 9h16.8M3.6 15h16.8" />
                 <path d="M12 3a15.3 15.3 0 0 1 4 9 15.3 15.3 0 0 1-4 9 15.3 15.3 0 0 1-4-9 15.3 15.3 0 0 1 4-9z" />
               </svg>
-              <span>360° görünüm için tıklayın</span>
+              <span>{texts.view360}</span>
             </button>
           )}
         </div>
@@ -147,7 +347,7 @@ export default function ProductDetail({ product }) {
                 <path d="M9.92184 6.12039C9.66934 7.10525 8.4762 7.80119 6.08977 9.19312C3.78285 10.5386 2.62942 11.2115 1.69988 10.941C1.31557 10.8292 0.96542 10.6169 0.683027 10.3244C1.27724e-07 9.61684 0 8.24456 0 5.49999C0 2.75542 1.27724e-07 1.38314 0.683027 0.675634C0.96542 0.383129 1.31557 0.170779 1.69988 0.0589748C2.62942 -0.211456 3.78285 0.461317 6.08977 1.80688C8.4762 3.19877 9.66934 3.89473 9.92184 4.87959C10.0261 5.28615 10.0261 5.71383 9.92184 6.12039Z" fill="white"/>
               </svg>
             </span>
-            <span className="product-page__video-btn-text">Videoyu izle</span>
+            <span className="product-page__video-btn-text">{texts.watchVideo}</span>
           </button>
         )}
       </div>
@@ -184,7 +384,7 @@ export default function ProductDetail({ product }) {
             <div
               className={`modal360__stage ${isDragging360 ? "is-dragging" : ""}`}
               role="slider"
-              aria-label={`${product.name} 360 degree view`}
+              aria-label={`${productName} 360 degree view`}
               aria-valuemin={1}
               aria-valuemax={frames360.length}
               aria-valuenow={frameIndex + 1}
@@ -213,19 +413,19 @@ export default function ProductDetail({ product }) {
             >
               <img
                 src={frames360[frameIndex]}
-                alt={`${product.name} frame ${frameIndex + 1}`}
+                alt={`${productName} frame ${frameIndex + 1}`}
                 className="modal360__img"
                 draggable={false}
               />
             </div>
-            <p className="modal360__hint">Ürünü sağa/sola sürükleyerek 360° görüntüleyin</p>
+            <p className="modal360__hint">{texts.drag360}</p>
           </div>
         </div>
       )}
 
       <div className="product-page__info">
-        <h1 className="product-page__title">{product.name}</h1>
-        <p className="product-page__desc">{product.description}</p>
+        <h1 className="product-page__title">{productName}</h1>
+        <p className="product-page__desc">{productDescription}</p>
 
         <div className="product-page__detail">
           <div
@@ -238,8 +438,8 @@ export default function ProductDetail({ product }) {
             </svg>
           </div>
           <div className="product-page__detail-text">
-            <span className="product-page__detail-label">Indications: </span>
-            {product.indications}
+            <span className="product-page__detail-label">{texts.indications} </span>
+            {productIndications}
           </div>
         </div>
 
@@ -257,14 +457,14 @@ export default function ProductDetail({ product }) {
             </svg>
           </div>
           <div className="product-page__detail-text">
-            <span className="product-page__detail-label">Active Ingredients: </span>
-            {product.activeIngredients}
+            <span className="product-page__detail-label">{texts.activeIngredients} </span>
+            {productActiveIngredients}
           </div>
         </div>
 
-        <h3 className="product-page__actions-title">Action:</h3>
+        <h3 className="product-page__actions-title">{texts.action}</h3>
         <ul className="product-page__actions-list">
-          {product.actions.map((action, i) => (
+          {productActions.map((action, i) => (
             <li key={i}>{action}</li>
           ))}
         </ul>
@@ -293,7 +493,7 @@ export default function ProductDetail({ product }) {
                   </svg>
                 </div>
                 <div className="b2b-card__text">
-                  <span className="b2b-card__label">Product Volume</span>
+                  <span className="b2b-card__label">{texts.productVolume}</span>
                   <span className="b2b-card__value">{product.b2b.volume}</span>
                 </div>
               </div>
@@ -306,7 +506,7 @@ export default function ProductDetail({ product }) {
                   </svg>
                 </div>
                 <div className="b2b-card__text">
-                  <span className="b2b-card__label">Quantity in Box</span>
+                  <span className="b2b-card__label">{texts.quantityInBox}</span>
                   <span className="b2b-card__value">{product.b2b.quantityInBox}</span>
                 </div>
               </div>
@@ -319,7 +519,7 @@ export default function ProductDetail({ product }) {
                   </svg>
                 </div>
                 <div className="b2b-card__text">
-                  <span className="b2b-card__label">Box Gross Weight</span>
+                  <span className="b2b-card__label">{texts.boxGrossWeight}</span>
                   <span className="b2b-card__value">{product.b2b.boxGrossWeight}</span>
                 </div>
               </div>
@@ -331,13 +531,13 @@ export default function ProductDetail({ product }) {
                   </svg>
                 </div>
                 <div className="b2b-card__text">
-                  <span className="b2b-card__label">Box Volume</span>
+                  <span className="b2b-card__label">{texts.boxVolume}</span>
                   <span className="b2b-card__value">{product.b2b.boxVolume}</span>
                 </div>
               </div>
             </div>
           ) : (
-            product.tabs[activeTab]
+            productTabs[activeTab]
           )}
         </div>
       </div>
