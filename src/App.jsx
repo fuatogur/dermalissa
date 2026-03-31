@@ -172,7 +172,7 @@ function AppContent() {
       <main className="main">
         {!menuOpen && !currentProduct && !isBlogList && !isBlogDetail && !isContact && showEnter && (
           <div className="home">
-            <EnterButton onClick={handleEnterClick} />
+            <EnterButton onClick={handleEnterClick} currentLang={currentLang} />
           </div>
         )}
 

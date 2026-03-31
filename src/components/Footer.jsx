@@ -1,9 +1,22 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
+const TEXTS = {
+    tr: { products: "Ürünler", blog: "Blog", contact: "İletişim", buy: "Satın Al", rights: "Tüm hakları saklıdır." },
+    en: { products: "Products", blog: "Blog", contact: "Contact", buy: "Buy Now", rights: "All rights reserved." },
+    de: { products: "Produkte", blog: "Blog", contact: "Kontakt", buy: "Kaufen", rights: "Alle Rechte vorbehalten." },
+    fr: { products: "Produits", blog: "Blog", contact: "Contact", buy: "Acheter", rights: "Tous droits réservés." },
+    es: { products: "Productos", blog: "Blog", contact: "Contacto", buy: "Comprar", rights: "Todos los derechos reservados." },
+    it: { products: "Prodotti", blog: "Blog", contact: "Contatto", buy: "Acquista", rights: "Tutti i diritti riservati." },
+    pt: { products: "Produtos", blog: "Blog", contact: "Contato", buy: "Comprar", rights: "Todos os direitos reservados." },
+    ru: { products: "Продукты", blog: "Блог", contact: "Контакт", buy: "Купить", rights: "Все права защищены." },
+    ar: { products: "المنتجات", blog: "المدونة", contact: "اتصل بنا", buy: "اشتري", rights: "جميع الحقوق محفوظة." },
+};
+
 export default function Footer({onProductsClick, currentLang}) {
     const [buyOpen, setBuyOpen] = useState(false);
     const navigate = useNavigate();
+    const texts = TEXTS[currentLang] || TEXTS.tr;
 
     return (
         <footer className="footer">
@@ -13,18 +26,18 @@ export default function Footer({onProductsClick, currentLang}) {
                     <img src="/ses-kimya.svg" alt="SES Kimya A.S." className="footer__partner-logo"/>
                 </a>
                 <div className="footer__copyright">
-                    &copy; 2026 dermalissa. Tüm hakları saklıdır.
+                    &copy; {new Date().getFullYear()} dermalissa. {texts.rights}
                 </div>
             </div>
 
             <nav className="footer__nav">
-                <span className="footer__nav-link" onClick={onProductsClick}>Ürünler</span>
-                <span className="footer__nav-link" onClick={() => navigate(`/${currentLang || 'tr'}/blog`)}>Blog</span>
+                <span className="footer__nav-link" onClick={onProductsClick}>{texts.products}</span>
+                <span className="footer__nav-link" onClick={() => navigate(`/${currentLang || 'tr'}/blog`)}>{texts.blog}</span>
                 <span className="footer__nav-link"
-                      onClick={() => navigate(`/${currentLang || 'tr'}/contact`)}>İletişim</span>
+                      onClick={() => navigate(`/${currentLang || 'tr'}/contact`)}>{texts.contact}</span>
                 <button className="footer__buy-btn" onClick={() => setBuyOpen(true)}>
                     <img src="/basket.svg" alt="" className="footer__buy-icon"/>
-                    Satın Al
+                    {texts.buy}
                 </button>
             </nav>
 
