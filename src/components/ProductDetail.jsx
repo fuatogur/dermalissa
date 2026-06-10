@@ -282,12 +282,7 @@ export default function ProductDetail({ product, lang = "en" }) {
       const img = new Image();
       img.src = src;
     });
-  }, [product?.slug]);
-
-  useEffect(() => {
-    setFrameIndex(0);
-    setIsDragging360(false);
-  }, [product?.slug]);
+  }, [has360, frames360]);
 
   useEffect(() => {
     if (!isDragging360) return;

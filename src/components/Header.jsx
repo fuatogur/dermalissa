@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const languages = [
   { code: "tr", label: "Türkçe", flag: "/tr.svg" },
@@ -17,6 +17,7 @@ export default function Header({ menuOpen, onToggleMenu, currentLang }) {
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const currentLanguage = languages.find((l) => l.code === currentLang) || languages[0];
 
@@ -32,8 +33,13 @@ export default function Header({ menuOpen, onToggleMenu, currentLang }) {
 
   function handleLangChange(code) {
     setLangOpen(false);
-    if (code !== currentLang) {
-      window.location.href = `/${code}`;
+    if (code === currentLang) return;
+    const segments = location.pathname.split("/").filter(Boolean);
+    if (segments.length === 0) {
+      navigate(`/${code}`);
+    } else {
+      segments[0] = code;
+      navigate(`/${segments.join("/")}`);
     }
   }
 
