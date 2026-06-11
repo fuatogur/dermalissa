@@ -16,37 +16,37 @@ const BLOG_TEXTS = {
   de: {
     title: "Blog",
     description:
-      "Entdecken Sie unsere Experteninhalte zu Hautpflege, Kosmetikwissenschaft und Beauty-Tipps.",
+      "Entdecken Sie unsere Experteninhalte zu Hautpflege, Kosmetikwissenschaft und Beauty-Tipps. Alles, was Sie für gesunde, strahlende Haut wissen müssen, finden Sie im Dermalissa Blog.",
   },
   fr: {
     title: "Blog",
     description:
-      "Découvrez nos contenus experts sur les soins de la peau, la science cosmétique et les conseils beauté.",
+      "Découvrez nos contenus experts sur les soins de la peau, la science cosmétique et les conseils beauté. Tout ce que vous devez savoir pour une peau saine et éclatante se trouve sur le Blog Dermalissa.",
   },
   es: {
     title: "Blog",
     description:
-      "Descubre nuestro contenido experto sobre cuidado de la piel, ciencia cosmética y consejos de belleza.",
+      "Descubre nuestro contenido experto sobre cuidado de la piel, ciencia cosmética y consejos de belleza. Todo lo que necesitas saber para una piel sana y radiante está en el Blog Dermalissa.",
   },
   it: {
     title: "Blog",
     description:
-      "Scopri i nostri contenuti esperti su cura della pelle, scienza cosmetica e consigli di bellezza.",
+      "Scopri i nostri contenuti esperti su cura della pelle, scienza cosmetica e consigli di bellezza. Tutto ciò che devi sapere per una pelle sana e luminosa è sul Blog Dermalissa.",
   },
   pt: {
     title: "Blog",
     description:
-      "Descubra nosso conteúdo especializado sobre cuidados com a pele, ciência cosmética e dicas de beleza.",
+      "Descubra o nosso conteúdo especializado sobre cuidados com a pele, ciência cosmética e dicas de beleza. Tudo o que precisa de saber para uma pele saudável e radiante está no Blog Dermalissa.",
   },
   ru: {
     title: "Блог",
     description:
-      "Откройте для себя экспертный контент по уходу за кожей, косметической науке и советам по красоте.",
+      "Откройте для себя экспертный контент по уходу за кожей, косметической науке и советам по красоте. Всё, что нужно знать для здоровой и сияющей кожи — в блоге Dermalissa.",
   },
   ar: {
     title: "المدونة",
     description:
-      "اكتشف محتوانا المتخصص حول العناية بالبشرة وعلم التجميل ونصائح الجمال.",
+      "اكتشف محتوانا المتخصص حول العناية بالبشرة وعلم التجميل ونصائح الجمال. كل ما تحتاج إلى معرفته للحصول على بشرة صحية ومشرقة تجده في مدونة Dermalissa.",
   },
 };
 

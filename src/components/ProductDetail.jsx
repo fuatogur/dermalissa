@@ -52,7 +52,7 @@ const TEXTS = {
     },
     productVolume: "Produktvolumen",
     quantityInBox: "Menge pro Karton",
-    boxGrossWeight: "Karton Bruttogewicht",
+    boxGrossWeight: "Karton-Bruttogewicht",
     boxVolume: "Kartonvolumen",
     view360: "Für 360°-Ansicht klicken",
     watchVideo: "Video ansehen",
@@ -131,8 +131,8 @@ const TEXTS = {
     boxGrossWeight: "Peso bruto da caixa",
     boxVolume: "Volume da caixa",
     view360: "Clique para vista 360°",
-    watchVideo: "Assistir ao vídeo",
-    drag360: "Arraste para esquerda/direita para ver em 360°",
+    watchVideo: "Ver o vídeo",
+    drag360: "Arraste para a esquerda/direita para ver em 360°",
   },
   ru: {
     indications: "Показания:",
@@ -154,7 +154,7 @@ const TEXTS = {
     drag360: "Перетащите влево/вправо для просмотра 360°",
   },
   ar: {
-    indications: "المؤشرات:",
+    indications: "دواعي الاستعمال:",
     activeIngredients: "المكونات الفعالة:",
     action: "التأثير:",
     tabs: {

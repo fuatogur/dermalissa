@@ -1,30 +1,31 @@
 import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
 
-const BREADCRUMB_TEXTS = {
-  tr: "Blog",
-  en: "Blog",
-  de: "Blog",
-  fr: "Blog",
-  es: "Blog",
-  it: "Blog",
-  pt: "Blog",
-  ru: "Блог",
-  ar: "المدونة",
+const TEXTS = {
+  tr: { breadcrumb: "Blog", notFound: "Yazı bulunamadı.", backToBlog: "Blog'a Dön" },
+  en: { breadcrumb: "Blog", notFound: "Post not found.", backToBlog: "Back to Blog" },
+  de: { breadcrumb: "Blog", notFound: "Beitrag nicht gefunden.", backToBlog: "Zurück zum Blog" },
+  fr: { breadcrumb: "Blog", notFound: "Article introuvable.", backToBlog: "Retour au Blog" },
+  es: { breadcrumb: "Blog", notFound: "Publicación no encontrada.", backToBlog: "Volver al Blog" },
+  it: { breadcrumb: "Blog", notFound: "Articolo non trovato.", backToBlog: "Torna al Blog" },
+  pt: { breadcrumb: "Blog", notFound: "Artigo não encontrado.", backToBlog: "Voltar ao Blog" },
+  ru: { breadcrumb: "Блог", notFound: "Запись не найдена.", backToBlog: "Назад к блогу" },
+  ar: { breadcrumb: "المدونة", notFound: "المقال غير موجود.", backToBlog: "العودة إلى المدونة" },
 };
 
 export default function BlogDetail() {
   const { lang, slug } = useParams();
   const safeLang = lang || "tr";
+  const texts = TEXTS[safeLang] || TEXTS.tr;
 
   const post = blogPosts.find((p) => p.slug === slug);
 
   if (!post) {
     return (
       <div className="blog-detail__not-found">
-        <p>{safeLang === "tr" ? "Yazı bulunamadı." : "Post not found."}</p>
+        <p>{texts.notFound}</p>
         <Link to={`/${safeLang}/blog`}>
-          &larr; {BREADCRUMB_TEXTS[safeLang] || "Blog"}
+          &larr; {texts.backToBlog}
         </Link>
       </div>
     );
@@ -37,7 +38,7 @@ export default function BlogDetail() {
     <article className="blog-detail">
       <nav className="blog-detail__breadcrumb" aria-label="Breadcrumb">
         <Link to={`/${safeLang}/blog`}>
-          {BREADCRUMB_TEXTS[safeLang] || "Blog"}
+          {texts.breadcrumb}
         </Link>
         <span className="blog-detail__breadcrumb-sep">&gt;</span>
         <span className="blog-detail__breadcrumb-current">{title}</span>

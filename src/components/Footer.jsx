@@ -7,9 +7,9 @@ const TEXTS = {
     de: { products: "Produkte", blog: "Blog", contact: "Kontakt", buy: "Kaufen", rights: "Alle Rechte vorbehalten." },
     fr: { products: "Produits", blog: "Blog", contact: "Contact", buy: "Acheter", rights: "Tous droits réservés." },
     es: { products: "Productos", blog: "Blog", contact: "Contacto", buy: "Comprar", rights: "Todos los derechos reservados." },
-    it: { products: "Prodotti", blog: "Blog", contact: "Contatto", buy: "Acquista", rights: "Tutti i diritti riservati." },
-    pt: { products: "Produtos", blog: "Blog", contact: "Contato", buy: "Comprar", rights: "Todos os direitos reservados." },
-    ru: { products: "Продукты", blog: "Блог", contact: "Контакт", buy: "Купить", rights: "Все права защищены." },
+    it: { products: "Prodotti", blog: "Blog", contact: "Contatti", buy: "Acquista", rights: "Tutti i diritti riservati." },
+    pt: { products: "Produtos", blog: "Blog", contact: "Contacto", buy: "Comprar", rights: "Todos os direitos reservados." },
+    ru: { products: "Продукция", blog: "Блог", contact: "Контакты", buy: "Купить", rights: "Все права защищены." },
     ar: { products: "المنتجات", blog: "المدونة", contact: "اتصل بنا", buy: "اشتري", rights: "جميع الحقوق محفوظة." },
 };
 

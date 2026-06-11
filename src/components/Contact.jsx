@@ -15,7 +15,7 @@ const CONTACT_TEXTS = {
     imageAlt: "Dermalissa cilt bakım ürünü - İletişim sayfası",
   },
   en: {
-    title: "Contact us",
+    title: "Contact",
     description: [
       "Reaching Dermalissa is always easy.",
       "You are welcome to share anything you are curious about, would like to express, or even the smallest detail on your mind.",
@@ -68,7 +68,7 @@ const CONTACT_TEXTS = {
       "Raggiungere Dermalissa è sempre facile.",
       "Siete invitati a condividere qualsiasi cosa vi incuriosisca, desideriate esprimere, o anche il più piccolo dettaglio che avete in mente.",
       "Ogni messaggio che inviate viene trattato con cura e genuina attenzione.",
-      "Le vostre richieste vengono indirizzate al team di esperti competente e risposte con attenzione.",
+      "Le vostre richieste vengono indirizzate al team di esperti competente e ricevono risposta con attenzione.",
     ],
     thankYou: "Grazie per aver contattato Dermalissa.",
     subtitle: "Potete contattarci qui.",
