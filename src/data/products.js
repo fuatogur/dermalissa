@@ -1454,9 +1454,9 @@ export const products = [
     subtitle: "ACTIVATOR",
     image: "/hair-growth-stimulator.png",
     detailImage: "/product-detail/hair-growth-stimulator.png",
-    color: "#6B8E6B",
-    bgColor: "rgba(107, 142, 107, 0.15)",
-    bgImage: "/retinol-night-cream-bg.svg",
+    color: "#6B3F1F",
+    bgColor: "rgba(107, 63, 31, 0.15)",
+    bgImage: "/hair-growth-stimulator-bg.svg",
     name: {
       en: "Hair Growth Stimulator",
       tr: "Saç Büyüme Stimülatörü",
