@@ -144,6 +144,7 @@ export default function useSeo({ lang = "tr", page = "home", slug = null, produc
 
   useEffect(() => {
     document.documentElement.lang = safeLang;
+    document.documentElement.dir = safeLang === "ar" ? "rtl" : "ltr";
     document.title = seo.title;
 
     setMeta("description", seo.description);

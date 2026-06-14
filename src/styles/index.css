@@ -1731,3 +1731,25 @@ img {
         gap: 28px;
     }
 }
+
+/* ============ RTL OVERRIDES ============ */
+/* In RTL mode (Arabic), html[dir="rtl"] flips text and flex order naturally
+   for content sections (product detail, blog, contact). But navigation chrome
+   — header, footer, buy modal — must keep their LTR layout so brand logo
+   stays centered, menu button stays left and language selector stays right
+   regardless of language. */
+
+[dir="rtl"] .header,
+[dir="rtl"] .footer,
+[dir="rtl"] .buy-modal {
+    direction: ltr;
+}
+
+/* Logo center anchor uses translateX(-50%) which is direction-agnostic — keep as is. */
+
+/* Restore text-align inside footer copyright and lang dropdown items so that
+   any Arabic substring still renders correctly via the browser's bidi handling. */
+[dir="rtl"] .header__lang-dropdown a {
+    text-align: left;
+}
+
