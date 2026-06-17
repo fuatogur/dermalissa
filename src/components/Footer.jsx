@@ -13,6 +13,20 @@ const TEXTS = {
     ar: { products: "المنتجات", blog: "المدونة", contact: "اتصل بنا", buy: "اشتري", rights: "جميع الحقوق محفوظة." },
 };
 
+// Satın al modal linkleri. Eklemek/silmek/değiştirmek için sadece bu listeyi düzenleyin.
+// `logo` = public/ içindeki SVG yolu, `label` = aria/alt metin, `href` = mağaza linki.
+// Not: Şimdilik tek liste — tüm dillerde aynı mağazalar görünür. Dile özel mağaza
+// gerektiğinde href'i { tr: "...", default: "..." } objesine çevirip resolve eden
+// küçük bir yardımcı ekleyebiliriz.
+const BUY_LINKS = [
+    { id: "trendyol", logo: "/trendyol.svg", label: "Trendyol", href: "https://www.trendyol.com" },
+    { id: "hepsiburada", logo: "/hepsiburada.svg", label: "Hepsiburada", href: "https://www.hepsiburada.com" },
+    { id: "kremalderma", logo: "/kremalderma.svg", label: "Kremalderma", href: "https://kremalderma.com/kategori/dermokozmetik" },
+];
+
+// Sabit banner görseli (örn. "/buy-banner.jpg"). null bırakılırsa gradient + Dermalissa logosu gösterilir.
+const BUY_BANNER_IMAGE = null;
+
 export default function Footer({onProductsClick, currentLang}) {
     const [buyOpen, setBuyOpen] = useState(false);
     const navigate = useNavigate();
@@ -43,19 +57,22 @@ export default function Footer({onProductsClick, currentLang}) {
 
             {buyOpen && (
                 <div className="buy-modal-overlay" onClick={() => setBuyOpen(false)}>
-                    <div className="buy-modal" onClick={(e) => e.stopPropagation()}>
-                        <div className="buy-modal__banner">
-                            <img src="https://dummyimage.com/600x260" alt="Banner"/>
+                    <div className="buy-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label={texts.buy}>
+                        <button className="buy-modal__close" aria-label="Close" onClick={() => setBuyOpen(false)}>×</button>
+                        <div className={`buy-modal__banner${BUY_BANNER_IMAGE ? '' : ' buy-modal__banner--fallback'}`}>
+                            {BUY_BANNER_IMAGE ? (
+                                <img src={BUY_BANNER_IMAGE} alt=""/>
+                            ) : (
+                                <img src="/logo.svg" alt="Dermalissa" className="buy-modal__banner-logo"/>
+                            )}
                         </div>
                         <div className="buy-modal__links">
-                            <a href="#" className="buy-modal__link-box" target="_blank" rel="noopener noreferrer">
-                                <img src="/trendyol.svg" alt="Trendyol" className="buy-modal__link-logo"/>
-                                <span className="buy-modal__link-arrow">&rarr;</span>
-                            </a>
-                            <a href="#" className="buy-modal__link-box" target="_blank" rel="noopener noreferrer">
-                                <img src="/hepsiburada.svg" alt="Hepsiburada" className="buy-modal__link-logo"/>
-                                <span className="buy-modal__link-arrow">&rarr;</span>
-                            </a>
+                            {BUY_LINKS.map((link) => (
+                                <a key={link.id} href={link.href} className="buy-modal__link-box" target="_blank" rel="noopener noreferrer" aria-label={link.label}>
+                                    <img src={link.logo} alt={link.label} className="buy-modal__link-logo"/>
+                                    <span className="buy-modal__link-arrow" aria-hidden="true">&rarr;</span>
+                                </a>
+                            ))}
                         </div>
                     </div>
                 </div>
