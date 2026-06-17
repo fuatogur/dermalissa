@@ -540,8 +540,8 @@ export const blogPosts = [
     id: 6,
     slug: "niasinamid-cildiniz-icin-mucize-bilesen",
     category: "ingredients",
-    image: "https://images.unsplash.com/photo-1570194065650-d99fb4b38b17?w=600&h=400&fit=crop",
-    heroImage: "https://images.unsplash.com/photo-1570194065650-d99fb4b38b17?w=1400&h=500&fit=crop",
+    image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=400&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=1400&h=500&fit=crop",
     date: "2025-12-15",
     title: {
       tr: "Niasinamid: Cildiniz İçin Mucize Bileşen",
