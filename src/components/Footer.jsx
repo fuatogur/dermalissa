@@ -19,8 +19,8 @@ const TEXTS = {
 // gerektiğinde href'i { tr: "...", default: "..." } objesine çevirip resolve eden
 // küçük bir yardımcı ekleyebiliriz.
 const BUY_LINKS = [
-    { id: "trendyol", logo: "/trendyol.svg", label: "Trendyol", href: "https://www.trendyol.com" },
-    { id: "hepsiburada", logo: "/hepsiburada.svg", label: "Hepsiburada", href: "https://www.hepsiburada.com" },
+    { id: "trendyol", logo: "/trendyol.svg", label: "Trendyol", href: "https://www.trendyol.com/sr?q=all%20about%20skin%20derma%20lissa%20dermo%20cosmetics&qt=all%20about%20skin%20derma%20lissa%20dermo%20cosmetics&st=all%20about%20skin%20derma%20lissa%20dermo%20cosmetics&os=1" },
+    { id: "hepsiburada", logo: "/hepsiburada.svg", label: "Hepsiburada", href: "https://www.hepsiburada.com/ara?q=all%20about%20skin%20derma%20lissa%20dermo%20cosmetics&filtreler=satici:nooymes&ic=t" },
     { id: "kremalderma", logo: "/kremalderma.svg", label: "Kremalderma", href: "https://kremalderma.com/kategori/dermokozmetik" },
 ];
 
