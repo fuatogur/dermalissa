@@ -144,17 +144,17 @@ export default function Contact() {
         contactPoint: [
           {
             "@type": "ContactPoint",
-            telephone: "+90-542-222-22-22",
+            telephone: "+90-539-737-15-46",
             contactType: "customer service",
             availableLanguage: ["Turkish", "English", "German", "French", "Spanish", "Italian", "Portuguese", "Russian", "Arabic"],
           },
           {
             "@type": "ContactPoint",
-            telephone: "+90-212-333-33-33",
+            telephone: "+90-212-659-67-37",
             contactType: "customer service",
           },
         ],
-        email: "support@dermalissa.com",
+        email: "support@seskimya.com.tr",
       },
     });
     document.head.appendChild(script);
@@ -197,41 +197,41 @@ export default function Contact() {
           <address className="contact-page__cards" itemScope itemType="https://schema.org/Organization">
             <meta itemProp="name" content="Dermalissa" />
             <a
-              href="https://wa.me/905422222222"
+              href="https://wa.me/905397371546"
               className="contact-page__card"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="WhatsApp: 0542 222 22 22"
+              aria-label="WhatsApp: +90 539 737 15 46"
               itemProp="contactPoint"
               itemScope
               itemType="https://schema.org/ContactPoint"
             >
               <img src="/whatsapp.svg" alt="WhatsApp" className="contact-page__card-icon" width="24" height="24" />
-              <span itemProp="telephone">0542 222 22 22</span>
+              <span itemProp="telephone">+90 539 737 15 46</span>
             </a>
 
             <a
-              href="tel:+902123333333"
+              href="tel:+902126596737"
               className="contact-page__card"
-              aria-label="Telefon: 0 (212) 333 33 33"
+              aria-label="Telefon: +90 212 659 67 37"
               itemProp="contactPoint"
               itemScope
               itemType="https://schema.org/ContactPoint"
             >
               <img src="/telephone.svg" alt="Telephone" className="contact-page__card-icon" width="24" height="24" />
-              <span itemProp="telephone">0 (212) 333 33 33</span>
+              <span itemProp="telephone">+90 212 659 67 37</span>
             </a>
 
             <a
-              href="mailto:support@dermalissa.com"
+              href="mailto:support@seskimya.com.tr"
               className="contact-page__card"
-              aria-label="E-mail: support@dermalissa.com"
+              aria-label="E-mail: support@seskimya.com.tr"
               itemProp="contactPoint"
               itemScope
               itemType="https://schema.org/ContactPoint"
             >
               <img src="/mailbox.svg" alt="E-mail" className="contact-page__card-icon" width="24" height="24" />
-              <span itemProp="email">support@dermalissa.com</span>
+              <span itemProp="email">support@seskimya.com.tr</span>
             </a>
           </address>
         </div>
