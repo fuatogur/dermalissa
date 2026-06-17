@@ -56,6 +56,11 @@ function setMeta(name, content, attr = "name") {
   el.setAttribute("content", content);
 }
 
+function removeMeta(name, attr = "name") {
+  const el = document.querySelector(`meta[${attr}="${name}"]`);
+  if (el) el.remove();
+}
+
 function setLink(rel, key, value, extra = {}) {
   const selector = Object.entries(extra)
     .map(([k, v]) => `[${k}="${v}"]`)
@@ -148,6 +153,16 @@ export default function useSeo({ lang = "tr", page = "home", slug = null, produc
     document.title = seo.title;
 
     setMeta("description", seo.description);
+    setMeta("author", "ogrsystem");
+
+    // Article-specific tags (only for blog post pages)
+    if (page === "blogDetail" && blogPost) {
+      setMeta("article:published_time", blogPost.date || "", "property");
+      setMeta("article:author", "ogrsystem", "property");
+    } else {
+      removeMeta("article:published_time", "property");
+      removeMeta("article:author", "property");
+    }
 
     // Open Graph
     setMeta("og:type", seo.ogType || "website", "property");
@@ -187,5 +202,5 @@ export default function useSeo({ lang = "tr", page = "home", slug = null, produc
             ? `${BASE_URL}/tr/${slug}`
             : `${BASE_URL}/tr`;
     setLink("alternate", "href", defaultHref, { hreflang: "x-default" });
-  }, [seo, safeLang, slug, page]);
+  }, [seo, safeLang, slug, page, blogPost]);
 }

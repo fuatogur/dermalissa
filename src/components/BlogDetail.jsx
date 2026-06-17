@@ -1,5 +1,8 @@
+import { useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
+
+const BASE_URL = "https://dermalissa.com";
 
 const TEXTS = {
   tr: { breadcrumb: "Blog", notFound: "Yazı bulunamadı.", backToBlog: "Blog'a Dön" },
@@ -17,8 +20,63 @@ export default function BlogDetail() {
   const { lang, slug } = useParams();
   const safeLang = lang || "tr";
   const texts = TEXTS[safeLang] || TEXTS.tr;
+  const jsonLdRef = useRef(null);
 
   const post = blogPosts.find((p) => p.slug === slug);
+
+  useEffect(() => {
+    if (!post) return undefined;
+    const title = post.title[safeLang] || post.title.tr;
+    const excerpt = post.excerpt[safeLang] || post.excerpt.tr;
+    const canonical = `${BASE_URL}/${safeLang}/blog/${post.slug}`;
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          headline: title,
+          description: excerpt,
+          image: post.heroImage || post.image,
+          datePublished: post.date,
+          dateModified: post.date,
+          inLanguage: safeLang,
+          mainEntityOfPage: canonical,
+          author: { "@type": "Person", name: "ogrsystem" },
+          publisher: {
+            "@type": "Organization",
+            name: "Dermalissa",
+            logo: { "@type": "ImageObject", url: `${BASE_URL}/logo.svg` },
+          },
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: texts.breadcrumb,
+              item: `${BASE_URL}/${safeLang}/blog`,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: title,
+            },
+          ],
+        },
+      ],
+    });
+    document.head.appendChild(script);
+    jsonLdRef.current = script;
+    return () => {
+      if (jsonLdRef.current) {
+        document.head.removeChild(jsonLdRef.current);
+        jsonLdRef.current = null;
+      }
+    };
+  }, [post, safeLang, texts.breadcrumb]);
 
   if (!post) {
     return (
