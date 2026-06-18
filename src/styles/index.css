@@ -1005,8 +1005,11 @@ img {
 }
 
 .enter-button__icon {
-    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: var(--color-dark);
     transition: color 0.3s;
+    display: block;
 }
 
 .enter-button__text {

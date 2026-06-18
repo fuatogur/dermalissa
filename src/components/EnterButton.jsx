@@ -15,7 +15,10 @@ export default function EnterButton({ onClick, currentLang }) {
   return (
     <div className="enter-button">
       <div className="enter-button__circle" onClick={onClick}>
-        <span className="enter-button__icon">&#x2192;</span>
+        <svg className="enter-button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12" />
+          <polyline points="13 6 19 12 13 18" />
+        </svg>
       </div>
       <div className="enter-button__text">{label}</div>
     </div>
