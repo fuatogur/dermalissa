@@ -125,8 +125,7 @@ export default function ProductSlider({ onSelectCenter, activeIndex, setActiveIn
                         width: 380,
                         height: 420,
                         ...(product.bgImage && {
-                          background: `url(${product.bgImage}) no-repeat`,
-                          backgroundSize: "100% 100%",
+                          "--card-bg": `url(${product.bgImage})`,
                         }),
                       }}
                   >

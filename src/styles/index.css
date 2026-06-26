@@ -457,6 +457,20 @@ img {
     overflow: hidden;
 }
 
+/* Renkli arka plan blob'unu yarı saydam katman olarak çiziyoruz; --card-bg JSX'te
+   inline custom property ile set ediliyor. opacity değerini ayarlamak için
+   sadece aşağıdaki sayıyı değiştir (0 = görünmez, 1 = mevcut yoğunlukta). */
+.menu-slider__card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--card-bg, none) no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+}
+
 .menu-slider__card-images {
     display: flex;
     align-items: flex-end;
