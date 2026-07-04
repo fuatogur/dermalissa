@@ -1082,7 +1082,6 @@ img {
 .footer__partner-logo {
     height: 66px;
     object-fit: contain;
-    object-position: -10px;
 }
 
 .footer__nav {
