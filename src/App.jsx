@@ -20,6 +20,8 @@ import Seo from "./components/Seo";
 import { products } from "./data/products";
 import { blogPosts } from "./data/blogPosts";
 
+const SUPPORTED_LANGS = ["tr", "en", "de", "fr", "es", "it", "pt", "ru", "ar"];
+
 function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,6 +30,21 @@ function AppContent() {
   const [showEnter, setShowEnter] = useState(true);
 
   const pathParts = location.pathname.split("/").filter(Boolean);
+
+  // Legacy / prefix-less URLs (e.g. /cream-for-acne-prone-skin indexed before
+  // URL-based i18n existed) land here with a non-language first segment and would
+  // otherwise fall back to the home page. Redirect them to the tr-prefixed path so
+  // the correct product/blog/contact view opens. vercel.json issues a real 301 for
+  // known slugs; this is the client-side safety net for anything it misses.
+  const needsLangRedirect =
+    pathParts.length > 0 && !SUPPORTED_LANGS.includes(pathParts[0]);
+
+  useEffect(() => {
+    if (needsLangRedirect) {
+      navigate(`/tr/${pathParts.join("/")}`, { replace: true });
+    }
+  }, [needsLangRedirect, location.pathname, navigate]);
+
   const currentLang = pathParts[0] || "tr";
 
   const isBlogList = pathParts.length >= 2 && pathParts[1] === "blog" && !pathParts[2];
@@ -139,6 +156,8 @@ function AppContent() {
         : currentProduct
           ? "product"
           : "home";
+
+  if (needsLangRedirect) return null;
 
   return (
     <div className="app">

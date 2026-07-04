@@ -1,4 +1,17 @@
 {
+  "redirects": [
+    { "source": "/contact", "destination": "/tr/contact", "permanent": true },
+    { "source": "/blog/:path*", "destination": "/tr/blog/:path*", "permanent": true },
+    { "source": "/revitalizing-oil", "destination": "/tr/revitalizing-oil", "permanent": true },
+    { "source": "/brightening-cream", "destination": "/tr/brightening-cream", "permanent": true },
+    { "source": "/retinol-night-cream", "destination": "/tr/retinol-night-cream", "permanent": true },
+    { "source": "/antioxidant-vitamin-c-cream", "destination": "/tr/antioxidant-vitamin-c-cream", "permanent": true },
+    { "source": "/ultra-hydrating-cream", "destination": "/tr/ultra-hydrating-cream", "permanent": true },
+    { "source": "/cream-for-acne-prone-skin", "destination": "/tr/cream-for-acne-prone-skin", "permanent": true },
+    { "source": "/anti-wrinkle-cream", "destination": "/tr/anti-wrinkle-cream", "permanent": true },
+    { "source": "/eye-contour-repair-cream", "destination": "/tr/eye-contour-repair-cream", "permanent": true },
+    { "source": "/hair-growth-stimulator", "destination": "/tr/hair-growth-stimulator", "permanent": true }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
