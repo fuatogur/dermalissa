@@ -174,7 +174,7 @@ export const products = [
       },
     },
     b2b: {
-      volume: "200 ml",
+      volume: "15 ml",
       quantityInBox: "24 pcs",
       boxGrossWeight: "5,5 kg",
       boxVolume: "0,013 m³",
