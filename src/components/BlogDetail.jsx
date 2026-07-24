@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
+import { isolateLtr } from "../utils/bidi";
 
 const BASE_URL = "https://dermalissa.com";
 
@@ -99,7 +100,7 @@ export default function BlogDetail() {
           {texts.breadcrumb}
         </Link>
         <span className="blog-detail__breadcrumb-sep">&gt;</span>
-        <span className="blog-detail__breadcrumb-current">{title}</span>
+        <span className="blog-detail__breadcrumb-current">{isolateLtr(title, safeLang)}</span>
       </nav>
 
       <div className="blog-detail__hero">
@@ -111,19 +112,19 @@ export default function BlogDetail() {
       </div>
 
       <div className="blog-detail__content">
-        <h1 className="blog-detail__title">{title}</h1>
+        <h1 className="blog-detail__title">{isolateLtr(title, safeLang)}</h1>
 
         {content.map((block, index) => {
           if (block.type === "heading") {
             return (
               <h2 key={index} className="blog-detail__subtitle">
-                {block.text}
+                {isolateLtr(block.text, safeLang)}
               </h2>
             );
           }
           return (
             <p key={index} className="blog-detail__paragraph">
-              {block.text}
+              {isolateLtr(block.text, safeLang)}
             </p>
           );
         })}

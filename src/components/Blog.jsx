@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { blogPosts, blogCategories } from "../data/blogPosts";
+import { isolateLtr } from "../utils/bidi";
 
 const BLOG_TEXTS = {
   tr: {
@@ -66,7 +67,7 @@ export default function Blog() {
     <section className="blog-page">
       <div className="blog-page__header">
         <h1 className="blog-page__title">{texts.title}</h1>
-        <p className="blog-page__description">{texts.description}</p>
+        <p className="blog-page__description">{isolateLtr(texts.description, safeLang)}</p>
       </div>
 
       <nav className="blog-page__categories" aria-label="Blog categories">
@@ -97,10 +98,10 @@ export default function Blog() {
                 />
               </div>
               <h2 className="blog-card__title">
-                {post.title[safeLang] || post.title.tr}
+                {isolateLtr(post.title[safeLang] || post.title.tr, safeLang)}
               </h2>
               <p className="blog-card__excerpt">
-                {post.excerpt[safeLang] || post.excerpt.tr}
+                {isolateLtr(post.excerpt[safeLang] || post.excerpt.tr, safeLang)}
               </p>
             </Link>
           </article>
