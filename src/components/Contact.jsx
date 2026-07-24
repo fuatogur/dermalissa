@@ -171,11 +171,18 @@ export default function Contact() {
     <section className="contact-page" itemScope itemType="https://schema.org/ContactPage">
       <div className="contact-page__container">
         <div className="contact-page__image">
-          <img
-            src="/contact-hero.jpg"
-            alt={texts.imageAlt}
+          {/* Boomerang: dosya ileri+geri (palindrom) olarak üretildiği için native
+              loop kesintisiz ping-pong verir (1→8→1→8…). aria için alt metni title'a taşıdık. */}
+          <video
             className="contact-page__img"
-            loading="lazy"
+            src="/contact-hero.mp4"
+            poster="/contact-hero-poster.jpg"
+            title={texts.imageAlt}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
           />
         </div>
 
