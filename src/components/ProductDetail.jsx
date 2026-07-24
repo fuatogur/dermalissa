@@ -489,7 +489,7 @@ export default function ProductDetail({ product, lang = "en" }) {
                 </div>
                 <div className="b2b-card__text">
                   <span className="b2b-card__label">{texts.productVolume}</span>
-                  <span className="b2b-card__value">{product.b2b.volume}</span>
+                  <span className="b2b-card__value"><bdi dir="ltr">{product.b2b.volume}</bdi></span>
                 </div>
               </div>
               <div className="b2b-card">
@@ -502,7 +502,7 @@ export default function ProductDetail({ product, lang = "en" }) {
                 </div>
                 <div className="b2b-card__text">
                   <span className="b2b-card__label">{texts.quantityInBox}</span>
-                  <span className="b2b-card__value">{product.b2b.quantityInBox}</span>
+                  <span className="b2b-card__value"><bdi dir="ltr">{product.b2b.quantityInBox}</bdi></span>
                 </div>
               </div>
               <div className="b2b-card">
@@ -515,7 +515,7 @@ export default function ProductDetail({ product, lang = "en" }) {
                 </div>
                 <div className="b2b-card__text">
                   <span className="b2b-card__label">{texts.boxGrossWeight}</span>
-                  <span className="b2b-card__value">{product.b2b.boxGrossWeight}</span>
+                  <span className="b2b-card__value"><bdi dir="ltr">{product.b2b.boxGrossWeight}</bdi></span>
                 </div>
               </div>
               <div className="b2b-card">
@@ -527,7 +527,7 @@ export default function ProductDetail({ product, lang = "en" }) {
                 </div>
                 <div className="b2b-card__text">
                   <span className="b2b-card__label">{texts.boxVolume}</span>
-                  <span className="b2b-card__value">{product.b2b.boxVolume}</span>
+                  <span className="b2b-card__value"><bdi dir="ltr">{product.b2b.boxVolume}</bdi></span>
                 </div>
               </div>
             </div>

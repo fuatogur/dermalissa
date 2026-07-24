@@ -214,7 +214,7 @@ export default function Contact() {
               itemType="https://schema.org/ContactPoint"
             >
               <img src="/whatsapp.svg" alt="WhatsApp" className="contact-page__card-icon" width="24" height="24" />
-              <span itemProp="telephone">+90 539 737 15 46</span>
+              <span itemProp="telephone"><bdi dir="ltr">+90 539 737 15 46</bdi></span>
             </a>
 
             <a
@@ -226,7 +226,7 @@ export default function Contact() {
               itemType="https://schema.org/ContactPoint"
             >
               <img src="/telephone.svg" alt="Telephone" className="contact-page__card-icon" width="24" height="24" />
-              <span itemProp="telephone">+90 212 659 67 37</span>
+              <span itemProp="telephone"><bdi dir="ltr">+90 212 659 67 37</bdi></span>
             </a>
 
             <a
