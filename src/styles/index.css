@@ -1202,6 +1202,16 @@ img {
     transform: translateX(4px);
 }
 
+/* TR dışı dillerde bölgesel satış noktası mesajı (link listesi yerine) */
+.buy-modal__coming-soon {
+    margin: 0;
+    padding: 40px 32px 44px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-gray);
+}
+
 /* ============ PAGE TRANSITIONS ============ */
 .page-transition-enter {
     opacity: 0;

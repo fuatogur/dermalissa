@@ -2,25 +2,21 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 const TEXTS = {
-    tr: { products: "Ürünler", blog: "Blog", contact: "İletişim", buy: "Satın Al", rights: "Tüm hakları saklıdır." },
-    en: { products: "Products", blog: "Blog", contact: "Contact", buy: "Buy Now", rights: "All rights reserved." },
-    de: { products: "Produkte", blog: "Blog", contact: "Kontakt", buy: "Kaufen", rights: "Alle Rechte vorbehalten." },
-    fr: { products: "Produits", blog: "Blog", contact: "Contact", buy: "Acheter", rights: "Tous droits réservés." },
-    es: { products: "Productos", blog: "Blog", contact: "Contacto", buy: "Comprar", rights: "Todos los derechos reservados." },
-    it: { products: "Prodotti", blog: "Blog", contact: "Contatti", buy: "Acquista", rights: "Tutti i diritti riservati." },
-    pt: { products: "Produtos", blog: "Blog", contact: "Contacto", buy: "Comprar", rights: "Todos os direitos reservados." },
-    ru: { products: "Продукция", blog: "Блог", contact: "Контакты", buy: "Купить", rights: "Все права защищены." },
-    ar: { products: "المنتجات", blog: "المدونة", contact: "اتصل بنا", buy: "اشتري", rights: "جميع الحقوق محفوظة." },
+    tr: { products: "Ürünler", blog: "Blog", contact: "İletişim", buy: "Satın Al", rights: "Tüm hakları saklıdır.", comingSoon: "Bu bölge için satış noktaları yakında eklenecek." },
+    en: { products: "Products", blog: "Blog", contact: "Contact", buy: "Buy Now", rights: "All rights reserved.", comingSoon: "Points of sale for this region are coming soon." },
+    de: { products: "Produkte", blog: "Blog", contact: "Kontakt", buy: "Kaufen", rights: "Alle Rechte vorbehalten.", comingSoon: "Verkaufsstellen für diese Region folgen in Kürze." },
+    fr: { products: "Produits", blog: "Blog", contact: "Contact", buy: "Acheter", rights: "Tous droits réservés.", comingSoon: "Points de vente pour cette région bientôt disponibles." },
+    es: { products: "Productos", blog: "Blog", contact: "Contacto", buy: "Comprar", rights: "Todos los derechos reservados.", comingSoon: "Los puntos de venta para esta región llegarán pronto." },
+    it: { products: "Prodotti", blog: "Blog", contact: "Contatti", buy: "Acquista", rights: "Tutti i diritti riservati.", comingSoon: "I punti vendita per questa regione arriveranno presto." },
+    pt: { products: "Produtos", blog: "Blog", contact: "Contacto", buy: "Comprar", rights: "Todos os direitos reservados.", comingSoon: "Os pontos de venda para esta região chegarão em breve." },
+    ru: { products: "Продукция", blog: "Блог", contact: "Контакты", buy: "Купить", rights: "Все права защищены.", comingSoon: "Точки продаж для этого региона скоро появятся." },
+    ar: { products: "المنتجات", blog: "المدونة", contact: "اتصل بنا", buy: "اشتري", rights: "جميع الحقوق محفوظة.", comingSoon: "نقاط البيع لهذه المنطقة ستتوفر قريبًا." },
 };
 
-// Satın al modal linkleri. Eklemek/silmek/değiştirmek için sadece bu listeyi düzenleyin.
-// `logo` = public/ içindeki SVG yolu, `label` = aria/alt metin, `href` = mağaza linki.
-// Not: Şimdilik tek liste — tüm dillerde aynı mağazalar görünür. Dile özel mağaza
-// gerektiğinde href'i { tr: "...", default: "..." } objesine çevirip resolve eden
-// küçük bir yardımcı ekleyebiliriz.
+// Satın al modal linkleri (SADECE Türkiye içi satış). Bu mağaza linkleri yalnızca `tr`
+// dilinde gösterilir; diğer dillerde bölgesel satış noktası henüz olmadığı için modalde
+// texts.comingSoon mesajı görünür. Eklemek/silmek için sadece bu listeyi düzenleyin.
 const BUY_LINKS = [
-    { id: "trendyol", logo: "/trendyol.svg", label: "Trendyol", href: "https://www.trendyol.com/sr?q=all%20about%20skin%20derma%20lissa%20dermo%20cosmetics&qt=all%20about%20skin%20derma%20lissa%20dermo%20cosmetics&st=all%20about%20skin%20derma%20lissa%20dermo%20cosmetics&os=1" },
-    { id: "hepsiburada", logo: "/hepsiburada.svg", label: "Hepsiburada", href: "https://www.hepsiburada.com/ara?q=all%20about%20skin%20derma%20lissa%20dermo%20cosmetics&filtreler=satici:nooymes&ic=t" },
     { id: "kremalderma", logo: "/kremalderma.svg", label: "Kremalderma", href: "https://kremalderma.com/kategori/dermokozmetik" },
 ];
 
@@ -71,14 +67,18 @@ export default function Footer({onProductsClick, currentLang}) {
                                 <img src="/logo.svg" alt="Dermalissa" className="buy-modal__banner-logo"/>
                             )}
                         </div>
-                        <div className="buy-modal__links">
-                            {BUY_LINKS.map((link) => (
-                                <a key={link.id} href={link.href} className="buy-modal__link-box" target="_blank" rel="noopener noreferrer" aria-label={link.label}>
-                                    <img src={link.logo} alt={link.label} className="buy-modal__link-logo"/>
-                                    <span className="buy-modal__link-arrow" aria-hidden="true">&rarr;</span>
-                                </a>
-                            ))}
-                        </div>
+                        {currentLang === 'tr' ? (
+                            <div className="buy-modal__links">
+                                {BUY_LINKS.map((link) => (
+                                    <a key={link.id} href={link.href} className="buy-modal__link-box" target="_blank" rel="noopener noreferrer" aria-label={link.label}>
+                                        <img src={link.logo} alt={link.label} className="buy-modal__link-logo"/>
+                                        <span className="buy-modal__link-arrow" aria-hidden="true">&rarr;</span>
+                                    </a>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="buy-modal__coming-soon">{texts.comingSoon}</p>
+                        )}
                     </div>
                 </div>
             )}
