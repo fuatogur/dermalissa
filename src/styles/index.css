@@ -973,6 +973,8 @@ img {
 }
 
 .footer__main {
+    max-width: 1500px;
+    margin: 0 auto;
     padding: 30px 60px;
     display: flex;
     align-items: center;
@@ -984,17 +986,20 @@ img {
     align-items: center;
 }
 
+/* Footer içeriği (.footer__main) ile aynı max-width (1500px, .product-page baz)
+   ve aynı yatay padding → ayraç çizgisi logo ile Satın Al butonu arasına hizalanır. */
 .footer__bottom {
+    max-width: 1500px;
+    margin: 0 auto;
     padding: 0 60px 16px;
 }
 
-/* Copyright üstündeki ayraç çizgisi: full-width değil, ürün detay sayfasıyla
-   (.product-page) aynı max-width'te (1500px) ortalanmış — kenardan kenara uzamaz. */
+/* Ayraç çizgisi: kutunun içerik alanını (60px padding'in içi) doldurur, böylece
+   tam logo-sol ile buton-sağ kenarlarına oturur; kenardan kenara uzamaz. */
 .footer__bottom::before {
     content: "";
     display: block;
-    max-width: 1500px;
-    margin: 0 auto 16px;
+    margin-bottom: 16px;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
