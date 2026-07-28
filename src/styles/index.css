@@ -985,8 +985,17 @@ img {
 }
 
 .footer__bottom {
+    padding: 0 60px 16px;
+}
+
+/* Copyright üstündeki ayraç çizgisi: full-width değil, ürün detay sayfasıyla
+   (.product-page) aynı max-width'te (1500px) ortalanmış — kenardan kenara uzamaz. */
+.footer__bottom::before {
+    content: "";
+    display: block;
+    max-width: 1500px;
+    margin: 0 auto 16px;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
-    padding: 16px 60px;
 }
 
 .footer__copyright {
@@ -1612,7 +1621,7 @@ img {
     }
 
     .footer__bottom {
-        padding: 14px 20px;
+        padding: 0 20px 14px;
     }
 
     .product-page {

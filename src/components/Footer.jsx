@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 const TEXTS = {
@@ -27,6 +27,16 @@ export default function Footer({onProductsClick, currentLang}) {
     const [buyOpen, setBuyOpen] = useState(false);
     const navigate = useNavigate();
     const texts = TEXTS[currentLang] || TEXTS.tr;
+
+    // Satın al modalını Esc ile kapat
+    useEffect(() => {
+        if (!buyOpen) return undefined;
+        const onKeyDown = (e) => {
+            if (e.key === "Escape") setBuyOpen(false);
+        };
+        window.addEventListener("keydown", onKeyDown);
+        return () => window.removeEventListener("keydown", onKeyDown);
+    }, [buyOpen]);
 
     return (
         <footer className="footer">
