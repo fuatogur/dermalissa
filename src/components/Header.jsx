@@ -72,6 +72,8 @@ export default function Header({ menuOpen, onToggleMenu, currentLang }) {
               style={{
                 fontWeight: lang.code === currentLang ? 600 : 400,
                 cursor: "pointer",
+                // Arapça satırı sağdan hizalı: bayrak sağda, metin RTL okunur
+                direction: lang.code === "ar" ? "rtl" : undefined,
               }}
             >
               <img src={lang.flag} alt={lang.label} style={{ width: "auto", height: 18 }} /> {lang.label}
