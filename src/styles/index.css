@@ -1803,3 +1803,13 @@ img {
     text-align: left;
 }
 
+/* Arapça (RTL): Enter butonu oku yön olarak ters çevrilir (sola bakar). */
+[dir="rtl"] .enter-button__icon {
+    transform: scaleX(-1);
+}
+
+/* Arapça (RTL): footer Satın Al butonundaki ikon metnin sağına geçer. */
+[dir="rtl"] .footer__buy-btn {
+    flex-direction: row-reverse;
+}
+
