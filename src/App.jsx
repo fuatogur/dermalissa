@@ -22,6 +22,20 @@ import { blogPosts } from "./data/blogPosts";
 
 const SUPPORTED_LANGS = ["tr", "en", "de", "fr", "es", "it", "pt", "ru", "ar"];
 
+// Ana sayfada görsel içerik (slider/enter butonu) olduğu için görünür bir H1 yok;
+// SEO/erişilebilirlik adına dile göre gizli (sr-only) tek H1 sunuyoruz.
+const HOME_H1 = {
+  tr: "Dermalissa Aktif Kozmetik — Dermokozmetik Cilt Bakımı Ürünleri",
+  en: "Dermalissa Active Cosmetics — Dermocosmetic Skincare Products",
+  de: "Dermalissa Aktive Kosmetik — Dermokosmetische Hautpflegeprodukte",
+  fr: "Dermalissa Cosmétiques Actifs — Produits Dermocosmétiques de Soin",
+  es: "Dermalissa Cosméticos Activos — Productos Dermocosméticos para la Piel",
+  it: "Dermalissa Cosmetici Attivi — Prodotti Dermocosmetici per la Pelle",
+  pt: "Dermalissa Cosméticos Ativos — Produtos Dermocosméticos para a Pele",
+  ru: "Dermalissa Активная косметика — дермокосметические средства по уходу за кожей",
+  ar: "Dermalissa مستحضرات تجميل فعّالة — منتجات ديرموكوزمتيك للعناية بالبشرة",
+};
+
 function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -191,12 +205,14 @@ function AppContent() {
       <main className="main">
         {!menuOpen && !currentProduct && !isBlogList && !isBlogDetail && !isContact && showEnter && (
           <div className="home">
+            <h1 className="sr-only">{HOME_H1[currentLang] || HOME_H1.tr}</h1>
             <EnterButton onClick={handleEnterClick} currentLang={currentLang} />
           </div>
         )}
 
         {!menuOpen && !currentProduct && !isBlogList && !isBlogDetail && !isContact && !showEnter && (
           <div className="home">
+            <h1 className="sr-only">{HOME_H1[currentLang] || HOME_H1.tr}</h1>
             <HomeSlider />
           </div>
         )}

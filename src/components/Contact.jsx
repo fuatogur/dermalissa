@@ -136,11 +136,11 @@ export default function Contact() {
       "@context": "https://schema.org",
       "@type": "ContactPage",
       name: "Dermalissa - " + texts.title,
-      url: `https://dermalissa.com/${safeLang}/contact`,
+      url: `https://www.dermalissa.com/${safeLang}/contact`,
       mainEntity: {
         "@type": "Organization",
         name: "Dermalissa",
-        url: "https://dermalissa.com",
+        url: "https://www.dermalissa.com",
         contactPoint: [
           {
             "@type": "ContactPoint",

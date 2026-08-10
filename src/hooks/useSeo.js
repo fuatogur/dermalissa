@@ -3,19 +3,19 @@ import { useEffect, useMemo } from "react";
 const SUPPORTED_LANGS = ["tr", "en", "de", "fr", "es", "it", "pt", "ru", "ar"];
 
 const SITE_NAME = "Dermalissa";
-const BASE_URL = "https://dermalissa.com";
+const BASE_URL = "https://www.dermalissa.com";
 
 const FALLBACK = {
   home: {
-    tr: { title: "Dermalissa - Aktif Kozmetik", description: "Dermalissa Aktif Kozmetik - Premium cilt bakım ürünleri" },
-    en: { title: "Dermalissa - Active Cosmetics", description: "Dermalissa Active Cosmetics - Premium skincare products" },
-    de: { title: "Dermalissa - Aktive Kosmetik", description: "Dermalissa Aktive Kosmetik - Premium Hautpflegeprodukte" },
-    fr: { title: "Dermalissa - Cosmétiques Actifs", description: "Dermalissa Cosmétiques Actifs - Produits de soins premium" },
-    es: { title: "Dermalissa - Cosméticos Activos", description: "Dermalissa Cosméticos Activos - Productos premium para el cuidado de la piel" },
-    it: { title: "Dermalissa - Cosmetici Attivi", description: "Dermalissa Cosmetici Attivi - Prodotti premium per la cura della pelle" },
-    pt: { title: "Dermalissa - Cosméticos Ativos", description: "Dermalissa Cosméticos Ativos - Produtos premium para cuidados com a pele" },
-    ru: { title: "Dermalissa - Активная Косметика", description: "Dermalissa Активная Косметика - Премиальные средства по уходу за кожей" },
-    ar: { title: "Dermalissa - مستحضرات التجميل الفعالة", description: "Dermalissa مستحضرات التجميل الفعالة - منتجات العناية بالبشرة المتميزة" },
+    tr: { title: "Dermalissa — Aktif Kozmetik & Cilt Bakımı Ürünleri", description: "Dermalissa Aktif Kozmetik - Premium dermokozmetik ve cilt bakım ürünleri" },
+    en: { title: "Dermalissa — Active Cosmetics & Skincare Products", description: "Dermalissa Active Cosmetics - Premium dermocosmetic and skincare products" },
+    de: { title: "Dermalissa — Aktive Kosmetik & Hautpflegeprodukte", description: "Dermalissa Aktive Kosmetik - Premium dermokosmetische und Hautpflegeprodukte" },
+    fr: { title: "Dermalissa — Cosmétiques Actifs & Soins de la Peau", description: "Dermalissa Cosmétiques Actifs - Produits dermocosmétiques et de soins premium" },
+    es: { title: "Dermalissa — Cosméticos Activos y Cuidado de la Piel", description: "Dermalissa Cosméticos Activos - Productos dermocosméticos y para el cuidado de la piel premium" },
+    it: { title: "Dermalissa — Cosmetici Attivi e Cura della Pelle", description: "Dermalissa Cosmetici Attivi - Prodotti dermocosmetici e per la cura della pelle premium" },
+    pt: { title: "Dermalissa — Cosméticos Ativos e Cuidados com a Pele", description: "Dermalissa Cosméticos Ativos - Produtos dermocosméticos e de cuidados com a pele premium" },
+    ru: { title: "Dermalissa — Активная косметика и уход за кожей", description: "Dermalissa Активная Косметика - Премиальная дермокосметика и средства по уходу за кожей" },
+    ar: { title: "Dermalissa — مستحضرات تجميل فعّالة والعناية بالبشرة", description: "Dermalissa مستحضرات التجميل الفعالة - منتجات ديرموكوزمتيك والعناية بالبشرة المتميزة" },
   },
   blog: {
     tr: { title: "Blog - Dermalissa", description: "Cilt bakımı, kozmetik bilimi ve güzellik ipuçları hakkında uzman içerikler. Sağlıklı ve parlak bir cilt için bilmeniz gereken her şey Dermalissa Blog'da." },

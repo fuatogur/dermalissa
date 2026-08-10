@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dermalissa.com/sitemap.xml
+Sitemap: https://www.dermalissa.com/sitemap.xml

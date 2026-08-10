@@ -5,7 +5,7 @@ import { products } from "../src/data/products.js";
 import { blogPosts } from "../src/data/blogPosts.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const BASE_URL = "https://dermalissa.com";
+const BASE_URL = "https://www.dermalissa.com";
 const LANGS = ["tr", "en", "de", "fr", "es", "it", "pt", "ru", "ar"];
 const TODAY = new Date().toISOString().split("T")[0];
 

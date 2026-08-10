@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
 import { isolateLtr } from "../utils/bidi";
 
-const BASE_URL = "https://dermalissa.com";
+const BASE_URL = "https://www.dermalissa.com";
 
 const TEXTS = {
   tr: { breadcrumb: "Blog", notFound: "Yazı bulunamadı.", backToBlog: "Blog'a Dön" },
