@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
+import {getShopSku} from '../data/shopSkus';
 
 const TEXTS = {
     tr: { products: "Ürünler", blog: "Blog", contact: "İletişim", buy: "Satın Al", rights: "Tüm hakları saklıdır.", comingSoon: "Bu bölge için satış noktaları yakında eklenecek." },
@@ -16,8 +17,13 @@ const TEXTS = {
 // Satın al modal linkleri (SADECE Türkiye içi satış). Bu mağaza linkleri yalnızca `tr`
 // dilinde gösterilir; diğer dillerde bölgesel satış noktası henüz olmadığı için modalde
 // texts.comingSoon mesajı görünür. Eklemek/silmek için sadece bu listeyi düzenleyin.
+//
+// ÜRÜN LİNKİ (manuel URL YOK): ziyaretçi bir ürün sayfasındayken modal linki
+// `{base}/git/{sku}` köprüsüne gider — mağaza SKU'dan GÜNCEL ürün detayına
+// kendisi 302'ler (mağazada slug değişse de kırılmaz). SKU eşlemesi
+// src/data/shopSkus.js'te. Ürün bağlamı yoksa `href` (kategori) kullanılır.
 const BUY_LINKS = [
-    { id: "kremalderma", logo: "/kremalderma.svg", label: "Kremalderma", href: "https://kremalderma.com/kategori/dermokozmetik" },
+    { id: "kremalderma", logo: "/kremalderma.svg", label: "Kremalderma", base: "https://kremalderma.com", href: "https://kremalderma.com/kategori/dermokozmetik" },
 ];
 
 // Sabit banner görseli (örn. "/buy-banner.jpg"). null bırakılırsa gradient + Dermalissa logosu gösterilir.
@@ -26,7 +32,16 @@ const BUY_BANNER_IMAGE = null;
 export default function Footer({onProductsClick, currentLang}) {
     const [buyOpen, setBuyOpen] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
     const texts = TEXTS[currentLang] || TEXTS.tr;
+
+    // Ürün sayfasındaysak (/:lang/:slug) o ürünün SKU'su — modal linki köprüye
+    // gider; ürün değilse (ana sayfa, blog, contact) null → kategori linki.
+    const segments = location.pathname.split('/').filter(Boolean);
+    const productSku = segments.length === 2 ? getShopSku(segments[1]) : null;
+    const buyHref = (link) => (productSku && link.base)
+        ? `${link.base}/git/${encodeURIComponent(productSku)}`
+        : link.href;
 
     // Satın al modalını Esc ile kapat
     useEffect(() => {
@@ -80,7 +95,7 @@ export default function Footer({onProductsClick, currentLang}) {
                         {currentLang === 'tr' ? (
                             <div className="buy-modal__links">
                                 {BUY_LINKS.map((link) => (
-                                    <a key={link.id} href={link.href} className="buy-modal__link-box" target="_blank" rel="noopener noreferrer" aria-label={link.label}>
+                                    <a key={link.id} href={buyHref(link)} className="buy-modal__link-box" target="_blank" rel="noopener noreferrer" aria-label={link.label}>
                                         <img src={link.logo} alt={link.label} className="buy-modal__link-logo"/>
                                         <span className="buy-modal__link-arrow" aria-hidden="true">&rarr;</span>
                                     </a>
