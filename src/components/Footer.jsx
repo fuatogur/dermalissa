@@ -22,14 +22,14 @@ const TEXTS = {
 // `{bridge|base}/git/{sku}[?query]` köprüsüne gider — mağaza SKU'dan GÜNCEL
 // ürün detayına kendisi 302'ler (slug değişse de kırılmaz); `to=trendyol|
 // hepsiburada` sorgusu SKU'nun platform listelemesine yönlendirir. SKU
-// eşlemesi src/data/shopSkus.js'te. Ürün bağlamı yoksa `href` kullanılır;
-// `requiresSku` satırları ürünsüz modalda hiç görünmez (pazaryeri vitrin
-// URL'i belli olana kadar).
+// eşlemesi src/data/shopSkus.js'te. Ürün bağlamı yoksa `href` kullanılır
+// (pazaryerlerinde CLEANAY COSMETIC mağaza vitrini).
 const BUY_LINKS = [
     { id: "kremalderma", logo: "/kremalderma.svg", label: "Kremalderma", base: "https://kremalderma.com", href: "https://kremalderma.com/kategori/dermokozmetik" },
-    { id: "cigdem", label: "Çiğdem Cosmetic", base: "https://cigdemcosmetic.com", href: "https://cigdemcosmetic.com" },
-    { id: "trendyol", logo: "/trendyol.svg", label: "Trendyol", requiresSku: true, bridge: "https://kremalderma.com", bridgeQuery: "to=trendyol" },
-    { id: "hepsiburada", logo: "/hepsiburada.svg", label: "Hepsiburada", requiresSku: true, bridge: "https://kremalderma.com", bridgeQuery: "to=hepsiburada" },
+    { id: "cigdem", logo: "/cigdem.svg", label: "Çiğdem Cosmetic", base: "https://cigdemcosmetic.com", href: "https://cigdemcosmetic.com" },
+    { id: "cleanay", logo: "/cleanay.svg", label: "Cleanay Cosmetic", base: "https://cleanaycosmetic.com", href: "https://cleanaycosmetic.com" },
+    { id: "trendyol", logo: "/trendyol.svg", label: "Trendyol", bridge: "https://kremalderma.com", bridgeQuery: "to=trendyol", href: "https://www.trendyol.com/magaza/cleanay-cosmetic-m-112996?sst=0" },
+    { id: "hepsiburada", logo: "/hepsiburada.svg", label: "Hepsiburada", bridge: "https://kremalderma.com", bridgeQuery: "to=hepsiburada", href: "https://www.hepsiburada.com/magaza/cleanay-cosmetic" },
 ];
 
 // Sabit banner görseli (örn. "/buy-banner.jpg"). null bırakılırsa gradient + Dermalissa logosu gösterilir.
