@@ -295,6 +295,28 @@ export default function ProductDetail({ product, lang = "en" }) {
     };
   }, [isDragging360]);
 
+  // Product + Brand yapısal verisi (marka entity'sini güçlendirir, "dermalissa"yı
+  // "dermalogica"dan ayırır). Fiyat/offer/rating YOK — mağazaya yönlendiriyoruz.
+  useEffect(() => {
+    if (!product) return undefined;
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: productName,
+      description: productDescription,
+      brand: { "@type": "Brand", name: "Dermalissa" },
+      category: "Skincare",
+      image: product.image ? `https://www.dermalissa.com${product.image}` : undefined,
+      url: `https://www.dermalissa.com/${lang}/${product.slug}`,
+    });
+    document.head.appendChild(script);
+    return () => {
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
+  }, [product, productName, productDescription, lang]);
+
   if (!product) return null;
 
   return (
