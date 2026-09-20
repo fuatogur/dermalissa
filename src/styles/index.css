@@ -1215,6 +1215,14 @@ img {
     object-position: left center;
 }
 
+/* Logosuz mecra satırı (örn. Çiğdem Cosmetic) — ad metin olarak yazılır. */
+.buy-modal__link-label {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--color-dark);
+}
+
 .buy-modal__link-arrow {
     font-size: 22px;
     color: var(--color-gray);

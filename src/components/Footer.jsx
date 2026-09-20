@@ -19,11 +19,17 @@ const TEXTS = {
 // texts.comingSoon mesajı görünür. Eklemek/silmek için sadece bu listeyi düzenleyin.
 //
 // ÜRÜN LİNKİ (manuel URL YOK): ziyaretçi bir ürün sayfasındayken modal linki
-// `{base}/git/{sku}` köprüsüne gider — mağaza SKU'dan GÜNCEL ürün detayına
-// kendisi 302'ler (mağazada slug değişse de kırılmaz). SKU eşlemesi
-// src/data/shopSkus.js'te. Ürün bağlamı yoksa `href` (kategori) kullanılır.
+// `{bridge|base}/git/{sku}[?query]` köprüsüne gider — mağaza SKU'dan GÜNCEL
+// ürün detayına kendisi 302'ler (slug değişse de kırılmaz); `to=trendyol|
+// hepsiburada` sorgusu SKU'nun platform listelemesine yönlendirir. SKU
+// eşlemesi src/data/shopSkus.js'te. Ürün bağlamı yoksa `href` kullanılır;
+// `requiresSku` satırları ürünsüz modalda hiç görünmez (pazaryeri vitrin
+// URL'i belli olana kadar).
 const BUY_LINKS = [
     { id: "kremalderma", logo: "/kremalderma.svg", label: "Kremalderma", base: "https://kremalderma.com", href: "https://kremalderma.com/kategori/dermokozmetik" },
+    { id: "cigdem", label: "Çiğdem Cosmetic", base: "https://cigdemcosmetic.com", href: "https://cigdemcosmetic.com" },
+    { id: "trendyol", logo: "/trendyol.svg", label: "Trendyol", requiresSku: true, bridge: "https://kremalderma.com", bridgeQuery: "to=trendyol" },
+    { id: "hepsiburada", logo: "/hepsiburada.svg", label: "Hepsiburada", requiresSku: true, bridge: "https://kremalderma.com", bridgeQuery: "to=hepsiburada" },
 ];
 
 // Sabit banner görseli (örn. "/buy-banner.jpg"). null bırakılırsa gradient + Dermalissa logosu gösterilir.
@@ -39,9 +45,16 @@ export default function Footer({onProductsClick, currentLang}) {
     // gider; ürün değilse (ana sayfa, blog, contact) null → kategori linki.
     const segments = location.pathname.split('/').filter(Boolean);
     const productSku = segments.length === 2 ? getShopSku(segments[1]) : null;
-    const buyHref = (link) => (productSku && link.base)
-        ? `${link.base}/git/${encodeURIComponent(productSku)}`
-        : link.href;
+    const buyHref = (link) => {
+        const bridge = link.bridge || link.base;
+        if (productSku && bridge) {
+            const qs = link.bridgeQuery ? `?${link.bridgeQuery}` : '';
+            return `${bridge}/git/${encodeURIComponent(productSku)}${qs}`;
+        }
+        return link.href;
+    };
+    // Pazaryeri satırları yalnız ürün bağlamında görünür.
+    const visibleBuyLinks = BUY_LINKS.filter((link) => !link.requiresSku || productSku);
 
     // Satın al modalını Esc ile kapat
     useEffect(() => {
@@ -94,9 +107,13 @@ export default function Footer({onProductsClick, currentLang}) {
                         </div>
                         {currentLang === 'tr' ? (
                             <div className="buy-modal__links">
-                                {BUY_LINKS.map((link) => (
+                                {visibleBuyLinks.map((link) => (
                                     <a key={link.id} href={buyHref(link)} className="buy-modal__link-box" target="_blank" rel="noopener noreferrer" aria-label={link.label}>
-                                        <img src={link.logo} alt={link.label} className="buy-modal__link-logo"/>
+                                        {link.logo ? (
+                                            <img src={link.logo} alt={link.label} className="buy-modal__link-logo"/>
+                                        ) : (
+                                            <span className="buy-modal__link-label">{link.label}</span>
+                                        )}
                                         <span className="buy-modal__link-arrow" aria-hidden="true">&rarr;</span>
                                     </a>
                                 ))}
