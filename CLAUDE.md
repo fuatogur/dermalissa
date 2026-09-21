@@ -67,3 +67,12 @@ Product shape: `id`, `slug`, `subtitle`, `image`, `detailImage`, `color`, `bgCol
 ### SEO
 
 `src/hooks/useSeo.js` + `src/components/Seo.jsx` manage `<meta>` tags, OpenGraph, hreflang alternates. Call `useSeo` with per-language content on each page.
+
+### Satın Al Linkleri (Footer modalı)
+
+Ürün linkleri ELLE TUTULMAZ: `src/data/shopSkus.js` (slug → SES Kimya SKU) +
+`src/data/marketplaceLinks.js` (SKU → kremalderma slug, Trendyol ve Hepsiburada
+ürün URL'i). İkincisi `npm run marketplace` ile kremal projesinin ürettiği
+`../kremal/storage/app/marketplace-links.json`'dan yenilenir, elle düzenlenmez.
+Aktif listelemesi olmayan SKU'da pazaryeri satırı gizlenir, Kremalderma vitrine
+düşer. Yeni ürün: `shopSkus.js`'e slug → SKU satırı ekle, script'i çalıştır.

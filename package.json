@@ -9,7 +9,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "sitemap": "node scripts/generate-sitemap.mjs"
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "marketplace": "node scripts/sync-marketplace-links.mjs"
   },
   "dependencies": {
     "react": "^19.2.0",

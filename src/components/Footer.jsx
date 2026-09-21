@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
 import {getShopSku} from '../data/shopSkus';
+import {MARKETPLACE_LINKS} from '../data/marketplaceLinks';
 
 const TEXTS = {
     tr: { products: "Ürünler", blog: "Blog", contact: "İletişim", buy: "Satın Al", rights: "Tüm hakları saklıdır.", comingSoon: "Bu bölge için satış noktaları yakında eklenecek." },
@@ -18,20 +19,31 @@ const TEXTS = {
 // dilinde gösterilir; diğer dillerde bölgesel satış noktası henüz olmadığı için modalde
 // texts.comingSoon mesajı görünür. Eklemek/silmek için sadece bu listeyi düzenleyin.
 //
-// ÜRÜN LİNKİ (manuel URL YOK): ziyaretçi bir ürün sayfasındayken modal linki
-// `{bridge|base}/git/{sku}[?query]` köprüsüne gider — mağaza SKU'dan GÜNCEL
-// ürün detayına kendisi 302'ler (slug değişse de kırılmaz); `to=trendyol|
-// hepsiburada` sorgusu SKU'nun platform listelemesine yönlendirir. SKU
-// eşlemesi src/data/shopSkus.js'te. Ürün bağlamı yoksa `href` kullanılır
-// (pazaryerlerinde CLEANAY COSMETIC mağaza vitrini).
+// ÜRÜN LİNKİ (manuel URL YOK): ziyaretçi bir ürün sayfasındayken her satır o
+// ürünün pazaryerindeki DOĞRUDAN ürün sayfasına gider. SKU `shopSkus.js`'ten,
+// SKU → link `marketplaceLinks.js`'ten (kremalderma.com'un ürettiği JSON'dan
+// `npm run marketplace` ile yenilenir) okunur. `key` o dosyadaki alan adıdır;
+// "kremalderma" özel: JSON'daki slug ile `{base}/urun/{slug}` kurulur.
+// `requiresListing` true ise ürün bağlamında SKU'nun aktif listelemesi yoksa
+// satır GİZLENİR. Ürün bağlamı yoksa `href` kullanılır (mağaza vitrini).
 const BUY_LINKS = [
-    { id: "kremalderma", logo: "/kremalderma.svg", label: "Kremalderma", base: "https://kremalderma.com", href: "https://kremalderma.com/kategori/dermokozmetik" },
+    { id: "kremalderma", key: "kremalderma", logo: "/kremalderma.svg", label: "Kremalderma", base: "https://kremalderma.com", href: "https://kremalderma.com/kategori/dermokozmetik" },
     // Çiğdem + Cleanay TASLAK — şimdilik gizli; açmak için satırı yorumdan çıkar.
-    // { id: "cigdem", logo: "/cigdem.svg", label: "Çiğdem Cosmetic", base: "https://cigdemcosmetic.com", href: "https://cigdemcosmetic.com" },
-    // { id: "cleanay", logo: "/cleanay.svg", label: "Cleanay Cosmetic", base: "https://cleanaycosmetic.com", href: "https://cleanaycosmetic.com" },
-    { id: "trendyol", logo: "/trendyol.svg", label: "Trendyol", bridge: "https://kremalderma.com", bridgeQuery: "to=trendyol", href: "https://www.trendyol.com/magaza/cleanay-cosmetic-m-112996?sst=0" },
-    { id: "hepsiburada", logo: "/hepsiburada.svg", label: "Hepsiburada", bridge: "https://kremalderma.com", bridgeQuery: "to=hepsiburada", href: "https://www.hepsiburada.com/magaza/cleanay-cosmetic" },
+    // { id: "cigdem", logo: "/cigdem.svg", label: "Çiğdem Cosmetic", href: "https://cigdemcosmetic.com" },
+    // { id: "cleanay", logo: "/cleanay.svg", label: "Cleanay Cosmetic", href: "https://cleanaycosmetic.com" },
+    { id: "trendyol", key: "trendyol", logo: "/trendyol.svg", label: "Trendyol", href: "https://www.trendyol.com/magaza/cleanay-cosmetic-m-112996?sst=0", requiresListing: true },
+    { id: "hepsiburada", key: "hepsiburada", logo: "/hepsiburada.svg", label: "Hepsiburada", href: "https://www.hepsiburada.com/magaza/cleanay-cosmetic", requiresListing: true },
 ];
+
+/** SKU'nun bu mağazadaki ürün sayfası URL'i; listeleme yoksa null. */
+function listingUrl(link, sku) {
+    const entry = sku ? MARKETPLACE_LINKS[sku] : null;
+    if (!entry || !link.key) return null;
+    if (link.key === "kremalderma") {
+        return entry.slug ? `${link.base}/urun/${entry.slug}` : null;
+    }
+    return entry[link.key] || null;
+}
 
 // Sabit banner görseli (örn. "/buy-banner.jpg"). null bırakılırsa gradient + Dermalissa logosu gösterilir.
 const BUY_BANNER_IMAGE = null;
@@ -42,20 +54,15 @@ export default function Footer({onProductsClick, currentLang}) {
     const location = useLocation();
     const texts = TEXTS[currentLang] || TEXTS.tr;
 
-    // Ürün sayfasındaysak (/:lang/:slug) o ürünün SKU'su — modal linki köprüye
-    // gider; ürün değilse (ana sayfa, blog, contact) null → kategori linki.
+    // Ürün sayfasındaysak (/:lang/:slug) o ürünün SKU'su — modal linkleri
+    // doğrudan ürün sayfasına gider; ürün değilse (ana sayfa, blog, contact)
+    // null → mağaza vitrini.
     const segments = location.pathname.split('/').filter(Boolean);
     const productSku = segments.length === 2 ? getShopSku(segments[1]) : null;
-    const buyHref = (link) => {
-        const bridge = link.bridge || link.base;
-        if (productSku && bridge) {
-            const qs = link.bridgeQuery ? `?${link.bridgeQuery}` : '';
-            return `${bridge}/git/${encodeURIComponent(productSku)}${qs}`;
-        }
-        return link.href;
-    };
-    // Pazaryeri satırları yalnız ürün bağlamında görünür.
-    const visibleBuyLinks = BUY_LINKS.filter((link) => !link.requiresSku || productSku);
+    const buyHref = (link) => listingUrl(link, productSku) || link.href;
+    // Ürün bağlamında requiresListing'li pazaryerleri yalnız o SKU'nun aktif
+    // listelemesi varsa gösterilir; ürünsüz modalda hepsi vitrin linkiyle görünür.
+    const visibleBuyLinks = BUY_LINKS.filter((link) => !productSku || !link.requiresListing || listingUrl(link, productSku));
 
     // Satın al modalını Esc ile kapat
     useEffect(() => {

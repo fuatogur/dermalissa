@@ -1,20 +1,22 @@
 /**
- * Ürün → mağaza SKU eşlemesi ("Satın Al" köprüsü).
+ * Ürün → SES Kimya SKU eşlemesi ("Satın Al" linkleri).
  *
- * Mağaza tarafı (kremalderma.com) `/git/{sku}` yoluyla SKU'dan ürünün
- * GÜNCEL detay sayfasına kendisi yönlendirir — burada URL tutulmaz, yalnız
- * değişmeyen SKU tutulur. Mağazada slug/isim değişse de bu dosya eskimez;
- * SKU'su olmayan sayfalarda modal mevcut kategori linkine düşer.
+ * SKU, `marketplaceLinks.js`'deki (kremalderma.com'dan gelen) satırı
+ * seçer; oradan Kremalderma slug'ı + Trendyol/Hepsiburada ürün URL'leri
+ * okunur. Burada URL tutulmaz, yalnız değişmeyen SKU tutulur.
+ *
+ * JSON'da karşılığı olmayan SKU modalda mağaza vitrinine düşer
+ * (pazaryeri satırları gizlenir).
  */
 export const SHOP_SKUS = {
+  "eye-contour-repair-cream": "152.DRM.0001",
   "revitalizing-oil": "152.DRM.0002",
   "brightening-cream": "152.DRM.0003",
-  "retinol-night-cream": "152.DRM.0007",
-  "antioxidant-vitamin-c-cream": "152.DRM.0006",
-  "ultra-hydrating-cream": "152.DRM.0008",
-  "cream-for-acne-prone-skin": "152.DRM.0005",
   "anti-wrinkle-cream": "152.DRM.0004",
-  "eye-contour-repair-cream": "152.DRM.0001",
+  "cream-for-acne-prone-skin": "152.DRM.0005",
+  "antioxidant-vitamin-c-cream": "152.DRM.0006",
+  "retinol-night-cream": "152.DRM.0007",
+  "ultra-hydrating-cream": "152.DRM.0008",
   "hair-growth-stimulator": "152.DRM.0009",
 };
 
