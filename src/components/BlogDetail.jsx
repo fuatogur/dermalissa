@@ -107,7 +107,7 @@ export default function BlogDetail() {
         <img
           src={post.heroImage}
           alt={title}
-          className="blog-detail__hero-img"
+          className={`blog-detail__hero-img${post.heroImage?.startsWith("http") ? "" : " blog-detail__hero-img--contain"}`}
         />
       </div>
 
@@ -120,6 +120,17 @@ export default function BlogDetail() {
               <h2 key={index} className="blog-detail__subtitle">
                 {isolateLtr(block.text, safeLang)}
               </h2>
+            );
+          }
+          if (block.type === "productLink" && block.slug) {
+            return (
+              <Link
+                key={index}
+                to={`/${safeLang}/${block.slug}`}
+                className="blog-detail__product-link"
+              >
+                {isolateLtr(block.text, safeLang)} &rarr;
+              </Link>
             );
           }
           return (

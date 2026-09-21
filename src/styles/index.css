@@ -1434,6 +1434,14 @@ img {
     object-fit: cover;
 }
 
+/* Yerel ürün görseli (şeffaf PNG) hero olarak: kırpma yerine tamamı görünsün,
+   yumuşak zeminde ortalı dursun — marka içi, stok/rakip görsel gerekmez. */
+.blog-detail__hero-img--contain {
+    object-fit: contain;
+    background: #f6f6f6;
+    padding: 24px;
+}
+
 .blog-detail__title {
     font-family: var(--font-primary);
     font-size: 28px;
@@ -1457,6 +1465,28 @@ img {
     line-height: 1.8;
     color: #555;
     margin-bottom: 20px;
+}
+
+/* Blog yazısından ilgili ürüne iç link CTA (SEO: sayfa gücünü ürüne taşır) */
+.blog-detail__product-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0 28px;
+    padding: 14px 28px;
+    background: var(--color-dark);
+    color: var(--color-light);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 30px;
+    transition: var(--transition-smooth);
+}
+
+.blog-detail__product-link:hover {
+    background: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
 .blog-detail__not-found {
