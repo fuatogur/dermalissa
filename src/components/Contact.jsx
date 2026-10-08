@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { trackLead } from "../utils/analytics";
 
 const CONTACT_TEXTS = {
   tr: {
@@ -209,6 +210,7 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp: +90 539 737 15 46"
+              onClick={() => trackLead("whatsapp", "contact_page")}
               itemProp="contactPoint"
               itemScope
               itemType="https://schema.org/ContactPoint"
@@ -221,6 +223,7 @@ export default function Contact() {
               href="tel:+902126596737"
               className="contact-page__card"
               aria-label="Telefon: +90 212 659 67 37"
+              onClick={() => trackLead("phone", "contact_page")}
               itemProp="contactPoint"
               itemScope
               itemType="https://schema.org/ContactPoint"
@@ -233,6 +236,7 @@ export default function Contact() {
               href="mailto:support@seskimya.com.tr"
               className="contact-page__card"
               aria-label="E-mail: support@seskimya.com.tr"
+              onClick={() => trackLead("email", "contact_page")}
               itemProp="contactPoint"
               itemScope
               itemType="https://schema.org/ContactPoint"

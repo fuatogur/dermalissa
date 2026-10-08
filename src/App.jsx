@@ -16,6 +16,7 @@ import HomeSlider from "./components/HomeSlider";
 import Blog from "./components/Blog";
 import BlogDetail from "./components/BlogDetail";
 import Contact from "./components/Contact";
+import WhatsAppFloat from "./components/WhatsAppFloat";
 import Seo from "./components/Seo";
 import { products } from "./data/products";
 import { blogPosts } from "./data/blogPosts";
@@ -259,6 +260,8 @@ function AppContent() {
       </main>
 
       {!menuOpen && <Footer onProductsClick={handleProductsClick} currentLang={currentLang} />}
+
+      {!menuOpen && <WhatsAppFloat currentLang={currentLang} />}
 
       <style>{`
         @keyframes fadeSlideIn {
