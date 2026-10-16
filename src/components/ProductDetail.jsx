@@ -295,21 +295,31 @@ export default function ProductDetail({ product, lang = "en" }) {
     };
   }, [isDragging360]);
 
-  // Product + Brand yapısal verisi (marka entity'sini güçlendirir, "dermalissa"yı
-  // "dermalogica"dan ayırır). Fiyat/offer/rating YOK — mağazaya yönlendiriyoruz.
+  // ItemPage + Brand yapısal verisi (marka entity'sini güçlendirir, "dermalissa"yı
+  // "dermalogica"dan ayırır). Product DEĞİL: Google Product için offers/review/
+  // aggregateRating şart koşuyor, fiyatsız marka sitesinde Search Console hatası verir.
   useEffect(() => {
     if (!product) return undefined;
     const script = document.createElement("script");
     script.type = "application/ld+json";
     script.textContent = JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "Product",
+      "@type": "ItemPage",
       name: productName,
       description: productDescription,
-      brand: { "@type": "Brand", name: "Dermalissa" },
-      category: "Skincare",
-      image: product.image ? `https://www.dermalissa.com${product.image}` : undefined,
       url: `https://www.dermalissa.com/${lang}/${product.slug}`,
+      inLanguage: lang,
+      primaryImageOfPage: product.image ? `https://www.dermalissa.com${product.image}` : undefined,
+      about: {
+        "@type": "Brand",
+        name: "Dermalissa",
+        url: "https://www.dermalissa.com",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Dermalissa",
+        parentOrganization: { "@type": "Organization", name: "SES Kimya A.Ş.", url: "https://seskimya.com" },
+      },
     });
     document.head.appendChild(script);
     return () => {
