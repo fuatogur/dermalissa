@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import ProductImage from "./ProductImage";
 
 const TEXTS = {
   en: {
@@ -338,7 +339,7 @@ export default function ProductDetail({ product, lang = "en" }) {
           onMouseLeave={() => setIsHoveringImage(false)}
         >
           {(product.detailImage || product.image) ? (
-            <img
+            <ProductImage
               src={product.detailImage || product.image}
               alt={productName}
               className="product-page__img"

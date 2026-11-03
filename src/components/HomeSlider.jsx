@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { products } from "../data/products";
+import ProductImage from "./ProductImage";
 
 function getProductName(product, lang) {
   const name = product.name;
@@ -145,7 +146,7 @@ export default function HomeSlider() {
               >
                 <div className="menu-slider__card-images">
                   {product.image ? (
-                    <img
+                    <ProductImage
                       src={product.image}
                       alt={name}
                       className="menu-slider__card-img menu-slider__card-img--center"
